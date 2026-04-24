@@ -2,7 +2,7 @@
 
 A Swift package that provides a type-safe, async/await-based client for the [Jellyfin](https://jellyfin.org) Media Server REST API.
 
-> **Status:** Early development — foundational package structure is in place; API endpoints will be implemented progressively.
+> **Status:** Service-first client surface implemented across authentication, users, sessions, library, catalog, metadata, images, playback, Live TV, system, and administration APIs.
 
 ---
 
@@ -96,36 +96,27 @@ let currentUser = try await authenticatedClient.users.currentUser()
 
 `JellyfinSwiftAPI` is `Sendable`, exposes protocol-typed services, and keeps concrete implementations internal to the package. The transport layer is prepared for Apple platforms and Linux.
 
-## Architecture
+## Included services
 
-- Public API surface is service-first: consumers access `client.system`, and future service groups will follow the same pattern.
-- Concrete service implementations and transport details stay internal to the package.
-- The shared runtime centralizes request building, auth handling, JSON decoding, empty responses, and raw payload handling before service-specific endpoints are added.
-- Tests are organized by service area and can load bundled example JSON fixtures for decoding and contract checks.
+The root client exposes 11 protocol-typed service groups:
 
-## OpenAPI workflow
+- `authentication`
+- `catalog`
+- `sessions`
+- `library`
+- `images`
+- `playback`
+- `liveTV`
+- `administration`
+- `metadata`
+- `system`
+- `users`
 
-Phase 1 codifies the approved service boundaries in `Scripts/openapi_service_map.json` and provides `Scripts/openapi_inventory.py` to classify the Jellyfin OpenAPI document against that map.
+## Notes
 
-```bash
-python3 Scripts/openapi_inventory.py \
-  --spec https://api.jellyfin.org/openapi/jellyfin-openapi-stable.json \
-  --output /tmp/jellyfin-openapi-inventory.json
-```
-
-The script exits non-zero if any OpenAPI operations are left unassigned or mapped to more than one service.
-
-Phase 3 adds schema normalization tooling for the shared model layer:
-
-```bash
-python3 Scripts/openapi_schema_catalog.py \
-  --spec https://api.jellyfin.org/openapi/jellyfin-openapi-stable.json \
-  --output /tmp/jellyfin-openapi-schema-catalog.json
-```
-
-Schema overrides for manual `oneOf` handling, primitive mappings, and future name overrides live in `Scripts/openapi_schema_overrides.json`.
-
-More API methods (authentication, library browsing, playback, etc.) will be added in upcoming releases.
+- Public API surface is service-first: consumers access `client.system`, `client.playback`, `client.sessions`, and the other domain services from the root client.
+- `JellyfinSwiftAPI` keeps concrete implementations internal to the package.
+- For contributor and maintainer documentation, see [MAINTAINERS.md](MAINTAINERS.md).
 
 ---
 
@@ -134,7 +125,8 @@ More API methods (authentication, library browsing, playback, etc.) will be adde
 1. Fork the repository and create your feature branch (`git checkout -b feature/my-feature`).
 2. Make your changes and add tests.
 3. Run the test suite: `swift test`.
-4. Open a Pull Request.
+4. Review [MAINTAINERS.md](MAINTAINERS.md) for development workflow details.
+5. Open a Pull Request.
 
 ---
 

@@ -74,7 +74,7 @@ final class AdministrationServiceTests: XCTestCase {
 
         try await service.updateScheduledTaskTriggers(
             taskID: "task-1",
-            triggers: [ScheduledTaskTrigger(type: "Daily", timeOfDayTicks: 36_000_000_000, intervalTicks: nil, dayOfWeek: nil, maxRuntimeTicks: nil)]
+            triggers: [ScheduledTaskTrigger(type: .dailyTrigger, timeOfDayTicks: 36_000_000_000, intervalTicks: nil, dayOfWeek: nil, maxRuntimeTicks: nil)]
         )
 
         let lastRequest = await transport.lastRequest()
@@ -82,7 +82,7 @@ final class AdministrationServiceTests: XCTestCase {
         let body = try JellyfinJSONCoder.decoder().decode([ScheduledTaskTrigger].self, from: try XCTUnwrap(request.httpBody))
         XCTAssertEqual(request.httpMethod, "POST")
         XCTAssertEqual(request.url?.absoluteString, "https://jellyfin.example.com/ScheduledTasks/task-1/Triggers")
-        XCTAssertEqual(body.first?.type, "Daily")
+        XCTAssertEqual(body.first?.type, .dailyTrigger)
     }
 
     func testPluginConfigurationReturnsRawPayload() async throws {

@@ -42,29 +42,5 @@ final class SystemServiceFixtureTests: XCTestCase {
 private func makeDecoder() -> JSONDecoder {
     let decoder = JSONDecoder()
     decoder.dateDecodingStrategy = .iso8601
-    decoder.keyDecodingStrategy = .custom { codingPath in
-        let key = codingPath.last?.stringValue ?? ""
-        guard let first = key.first else {
-            return FixtureCodingKey(stringValue: key) ?? FixtureCodingKey(intValue: 0)!
-        }
-
-        return FixtureCodingKey(stringValue: first.lowercased() + key.dropFirst())
-            ?? FixtureCodingKey(intValue: 0)!
-    }
     return decoder
-}
-
-private struct FixtureCodingKey: CodingKey {
-    let stringValue: String
-    let intValue: Int?
-
-    init?(stringValue: String) {
-        self.stringValue = stringValue
-        self.intValue = nil
-    }
-
-    init?(intValue: Int) {
-        self.stringValue = String(intValue)
-        self.intValue = intValue
-    }
 }

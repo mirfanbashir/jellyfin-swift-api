@@ -4,8 +4,8 @@
       "Name": "PG",
       "Value": 10,
       "RatingScore": {
-        "score": 10,
-        "subScore": null
+        "Score": 10,
+        "SubScore": null
       }
     }
   ],

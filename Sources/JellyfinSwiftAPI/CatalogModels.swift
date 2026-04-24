@@ -376,6 +376,12 @@ public struct BaseItemQueryResult: Codable, Sendable, Equatable {
     public let items: [BaseItem]
     public let totalRecordCount: Int
     public let startIndex: Int
+
+    enum CodingKeys: String, CodingKey {
+        case items = "Items"
+        case totalRecordCount = "TotalRecordCount"
+        case startIndex = "StartIndex"
+    }
 }
 
 /// Partial Jellyfin item model used by catalog browse endpoints.
@@ -399,8 +405,73 @@ public struct BaseItem: Codable, Sendable, Equatable {
     public let productionYear: Int?
     public let indexNumber: Int?
     public let parentIndexNumber: Int?
-    public let type: String?
-    public let mediaType: String?
+    public let type: BaseItemKind?
+    public let mediaType: MediaType?
+
+    enum CodingKeys: String, CodingKey {
+        case name = "Name"
+        case originalTitle = "OriginalTitle"
+        case serverId = "ServerId"
+        case id = "Id"
+        case etag = "Etag"
+        case sourceType = "SourceType"
+        case playlistItemId = "PlaylistItemId"
+        case dateCreated = "DateCreated"
+        case dateLastMediaAdded = "DateLastMediaAdded"
+        case sortName = "SortName"
+        case premiereDate = "PremiereDate"
+        case officialRating = "OfficialRating"
+        case overview = "Overview"
+        case genres = "Genres"
+        case communityRating = "CommunityRating"
+        case runTimeTicks = "RunTimeTicks"
+        case productionYear = "ProductionYear"
+        case indexNumber = "IndexNumber"
+        case parentIndexNumber = "ParentIndexNumber"
+        case type = "Type"
+        case mediaType = "MediaType"
+    }
+}
+
+/// Jellyfin item kinds surfaced by browse endpoints.
+public enum BaseItemKind: String, Codable, Sendable, Equatable {
+    case aggregateFolder = "AggregateFolder"
+    case audio = "Audio"
+    case audioBook = "AudioBook"
+    case basePluginFolder = "BasePluginFolder"
+    case book = "Book"
+    case boxSet = "BoxSet"
+    case channel = "Channel"
+    case channelFolderItem = "ChannelFolderItem"
+    case collectionFolder = "CollectionFolder"
+    case episode = "Episode"
+    case folder = "Folder"
+    case genre = "Genre"
+    case manualPlaylistsFolder = "ManualPlaylistsFolder"
+    case movie = "Movie"
+    case liveTVChannel = "LiveTvChannel"
+    case liveTVProgram = "LiveTvProgram"
+    case musicAlbum = "MusicAlbum"
+    case musicArtist = "MusicArtist"
+    case musicGenre = "MusicGenre"
+    case musicVideo = "MusicVideo"
+    case person = "Person"
+    case photo = "Photo"
+    case photoAlbum = "PhotoAlbum"
+    case playlist = "Playlist"
+    case playlistsFolder = "PlaylistsFolder"
+    case program = "Program"
+    case recording = "Recording"
+    case season = "Season"
+    case series = "Series"
+    case studio = "Studio"
+    case trailer = "Trailer"
+    case tvChannel = "TvChannel"
+    case tvProgram = "TvProgram"
+    case userRootFolder = "UserRootFolder"
+    case userView = "UserView"
+    case video = "Video"
+    case year = "Year"
 }
 
 /// Movie recommendation group.
@@ -409,6 +480,13 @@ public struct Recommendation: Codable, Sendable, Equatable {
     public let recommendationType: RecommendationType
     public let baselineItemName: String?
     public let categoryId: UUID
+
+    enum CodingKeys: String, CodingKey {
+        case items = "Items"
+        case recommendationType = "RecommendationType"
+        case baselineItemName = "BaselineItemName"
+        case categoryId = "CategoryId"
+    }
 }
 
 /// Recommendation category.

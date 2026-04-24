@@ -207,4 +207,9 @@ internal struct UsersServiceClient: UsersService {
 private struct CreateUserRequest: Codable, Sendable {
     let name: String
     let password: String?
+
+    enum CodingKeys: String, CodingKey {
+        case name = "Name"
+        case password = "Password"
+    }
 }

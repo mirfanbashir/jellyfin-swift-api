@@ -10,7 +10,7 @@
     "Key": "scan-library",
     "Triggers": [
       {
-        "Type": "Daily",
+        "Type": "DailyTrigger",
         "TimeOfDayTicks": 36000000000
       }
     ]

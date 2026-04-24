@@ -131,16 +131,33 @@ internal struct AuthenticationServiceClient: AuthenticationService {
 private struct AuthenticateByNameRequest: Codable, Sendable {
     let username: String
     let pw: String?
+
+    enum CodingKeys: String, CodingKey {
+        case username = "Username"
+        case pw = "Pw"
+    }
 }
 
 private struct QuickConnectAuthenticationRequest: Codable, Sendable {
     let secret: String
+
+    enum CodingKeys: String, CodingKey {
+        case secret = "Secret"
+    }
 }
 
 private struct ForgotPasswordRequest: Codable, Sendable {
     let enteredUsername: String
+
+    enum CodingKeys: String, CodingKey {
+        case enteredUsername = "EnteredUsername"
+    }
 }
 
 private struct ForgotPasswordPinRequest: Codable, Sendable {
     let pin: String
+
+    enum CodingKeys: String, CodingKey {
+        case pin = "Pin"
+    }
 }

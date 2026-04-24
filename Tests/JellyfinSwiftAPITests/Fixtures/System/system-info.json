@@ -20,26 +20,26 @@
       "SourceUrl": "https://example.com/packages/thetvdb.zip",
       "Checksum": "abc123",
       "PackageInfo": {
-        "name": "TheTVDB",
-        "description": "Metadata provider plugin.",
-        "overview": "Provides metadata from TheTVDB.",
-        "owner": "Jellyfin",
-        "category": "Metadata",
-        "guid": "5f6d5a13-4b25-4f8d-b9fb-a3b4699ef001",
-        "versions": [
+        "Name": "TheTVDB",
+        "Description": "Metadata provider plugin.",
+        "Overview": "Provides metadata from TheTVDB.",
+        "Owner": "Jellyfin",
+        "Category": "Metadata",
+        "Guid": "5f6d5a13-4b25-4f8d-b9fb-a3b4699ef001",
+        "Versions": [
           {
-            "version": "1.2.3",
+            "Version": "1.2.3",
             "VersionNumber": "1.2.3",
-            "changelog": "Updated metadata provider.",
-            "targetAbi": "10.11.0",
-            "sourceUrl": "https://example.com/packages/thetvdb.zip",
-            "checksum": "abc123",
-            "timestamp": "2026-04-01T12:00:00Z",
-            "repositoryName": "Official",
-            "repositoryUrl": "https://repo.example.com"
+            "Changelog": "Updated metadata provider.",
+            "TargetAbi": "10.11.0",
+            "SourceUrl": "https://example.com/packages/thetvdb.zip",
+            "Checksum": "abc123",
+            "Timestamp": "2026-04-01T12:00:00Z",
+            "RepositoryName": "Official",
+            "RepositoryUrl": "https://repo.example.com"
           }
         ],
-        "imageUrl": "https://example.com/packages/thetvdb.png"
+        "ImageUrl": "https://example.com/packages/thetvdb.png"
       }
     }
   ],

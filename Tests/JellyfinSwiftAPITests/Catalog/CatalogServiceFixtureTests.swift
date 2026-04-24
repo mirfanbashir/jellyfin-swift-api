@@ -15,7 +15,8 @@ final class CatalogServiceFixtureTests: XCTestCase {
         let decoded = try JellyfinJSONCoder.decoder().decode(BaseItem.self, from: data)
 
         XCTAssertEqual(decoded.name, "John Williams")
-        XCTAssertEqual(decoded.mediaType, "Audio")
+        XCTAssertEqual(decoded.mediaType, .audio)
+        XCTAssertEqual(decoded.type, .musicArtist)
     }
 
     func testRecommendationsFixtureDecodes() throws {

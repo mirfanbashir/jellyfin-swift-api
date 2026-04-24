@@ -5,6 +5,12 @@ public struct ExternalIDInfo: Codable, Sendable, Equatable {
     public let name: String
     public let key: String
     public let type: ExternalIDMediaType?
+
+    enum CodingKeys: String, CodingKey {
+        case name = "Name"
+        case key = "Key"
+        case type = "Type"
+    }
 }
 
 /// Media types supported by external identifier providers.
@@ -37,6 +43,19 @@ public struct RemoteSearchResult: Codable, Sendable, Equatable {
     public let imageUrl: String?
     public let searchProviderName: String?
     public let overview: String?
+
+    enum CodingKeys: String, CodingKey {
+        case name = "Name"
+        case providerIds = "ProviderIds"
+        case productionYear = "ProductionYear"
+        case indexNumber = "IndexNumber"
+        case indexNumberEnd = "IndexNumberEnd"
+        case parentIndexNumber = "ParentIndexNumber"
+        case premiereDate = "PremiereDate"
+        case imageUrl = "ImageUrl"
+        case searchProviderName = "SearchProviderName"
+        case overview = "Overview"
+    }
 }
 
 /// Shared metadata search-info shape.
@@ -52,6 +71,20 @@ public struct MetadataSearchInfo: Codable, Sendable, Equatable {
     public let parentIndexNumber: Int?
     public let premiereDate: Date?
     public let isAutomated: Bool
+
+    enum CodingKeys: String, CodingKey {
+        case name = "Name"
+        case originalTitle = "OriginalTitle"
+        case path = "Path"
+        case metadataLanguage = "MetadataLanguage"
+        case metadataCountryCode = "MetadataCountryCode"
+        case providerIds = "ProviderIds"
+        case year = "Year"
+        case indexNumber = "IndexNumber"
+        case parentIndexNumber = "ParentIndexNumber"
+        case premiereDate = "PremiereDate"
+        case isAutomated = "IsAutomated"
+    }
 }
 
 /// Album-specific metadata search info.
@@ -69,6 +102,22 @@ public struct AlbumSearchInfo: Codable, Sendable, Equatable {
     public let isAutomated: Bool
     public let albumArtists: [String]
     public let artistProviderIds: [String: String?]
+
+    enum CodingKeys: String, CodingKey {
+        case name = "Name"
+        case originalTitle = "OriginalTitle"
+        case path = "Path"
+        case metadataLanguage = "MetadataLanguage"
+        case metadataCountryCode = "MetadataCountryCode"
+        case providerIds = "ProviderIds"
+        case year = "Year"
+        case indexNumber = "IndexNumber"
+        case parentIndexNumber = "ParentIndexNumber"
+        case premiereDate = "PremiereDate"
+        case isAutomated = "IsAutomated"
+        case albumArtists = "AlbumArtists"
+        case artistProviderIds = "ArtistProviderIds"
+    }
 }
 
 /// Music-video-specific metadata search info.
@@ -85,6 +134,21 @@ public struct MusicVideoSearchInfo: Codable, Sendable, Equatable {
     public let premiereDate: Date?
     public let isAutomated: Bool
     public let artists: [String]?
+
+    enum CodingKeys: String, CodingKey {
+        case name = "Name"
+        case originalTitle = "OriginalTitle"
+        case path = "Path"
+        case metadataLanguage = "MetadataLanguage"
+        case metadataCountryCode = "MetadataCountryCode"
+        case providerIds = "ProviderIds"
+        case year = "Year"
+        case indexNumber = "IndexNumber"
+        case parentIndexNumber = "ParentIndexNumber"
+        case premiereDate = "PremiereDate"
+        case isAutomated = "IsAutomated"
+        case artists = "Artists"
+    }
 }
 
 /// Generic remote-search request wrapper.
@@ -93,6 +157,13 @@ public struct RemoteSearchQuery<SearchInfo: Codable & Sendable & Equatable>: Cod
     public let itemId: UUID
     public let searchProviderName: String?
     public let includeDisabledProviders: Bool
+
+    enum CodingKeys: String, CodingKey {
+        case searchInfo = "SearchInfo"
+        case itemId = "ItemId"
+        case searchProviderName = "SearchProviderName"
+        case includeDisabledProviders = "IncludeDisabledProviders"
+    }
 }
 
 public typealias BookRemoteSearchQuery = RemoteSearchQuery<MetadataSearchInfo>
@@ -144,12 +215,26 @@ public struct MetadataEditorInfo: Codable, Sendable, Equatable {
     public let externalIdInfos: [ExternalIDInfo]
     public let contentType: CollectionType?
     public let contentTypeOptions: [NameValuePair]
+
+    enum CodingKeys: String, CodingKey {
+        case parentalRatingOptions = "ParentalRatingOptions"
+        case countries = "Countries"
+        case cultures = "Cultures"
+        case externalIdInfos = "ExternalIdInfos"
+        case contentType = "ContentType"
+        case contentTypeOptions = "ContentTypeOptions"
+    }
 }
 
 /// Name/value pair option returned by metadata editor endpoints.
 public struct NameValuePair: Codable, Sendable, Equatable {
     public let name: String?
     public let value: String?
+
+    enum CodingKeys: String, CodingKey {
+        case name = "Name"
+        case value = "Value"
+    }
 }
 
 /// Collection content types supported by Jellyfin.
@@ -197,6 +282,12 @@ public struct RemoteImageResult: Codable, Sendable, Equatable {
     public let images: [RemoteImageInfo]?
     public let totalRecordCount: Int
     public let providers: [String]?
+
+    enum CodingKeys: String, CodingKey {
+        case images = "Images"
+        case totalRecordCount = "TotalRecordCount"
+        case providers = "Providers"
+    }
 }
 
 /// Remote image candidate entry.
@@ -211,6 +302,19 @@ public struct RemoteImageInfo: Codable, Sendable, Equatable {
     public let language: String?
     public let type: ImageType
     public let ratingType: ImageRatingType
+
+    enum CodingKeys: String, CodingKey {
+        case providerName = "ProviderName"
+        case url = "Url"
+        case thumbnailUrl = "ThumbnailUrl"
+        case height = "Height"
+        case width = "Width"
+        case communityRating = "CommunityRating"
+        case voteCount = "VoteCount"
+        case language = "Language"
+        case type = "Type"
+        case ratingType = "RatingType"
+    }
 }
 
 /// Supported Jellyfin image types.
@@ -240,4 +344,9 @@ public enum ImageRatingType: String, Codable, Sendable, Equatable {
 public struct ImageProviderInfo: Codable, Sendable, Equatable {
     public let name: String
     public let supportedImages: [ImageType]
+
+    enum CodingKeys: String, CodingKey {
+        case name = "Name"
+        case supportedImages = "SupportedImages"
+    }
 }

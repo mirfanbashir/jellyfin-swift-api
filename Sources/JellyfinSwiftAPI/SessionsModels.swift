@@ -48,18 +48,60 @@ public struct SessionInfo: Codable, Sendable, Equatable {
     public let serverId: String?
     public let userPrimaryImageTag: String?
     public let supportedCommands: [SessionGeneralCommand]?
+
+    enum CodingKeys: String, CodingKey {
+        case playState = "PlayState"
+        case additionalUsers = "AdditionalUsers"
+        case capabilities = "Capabilities"
+        case remoteEndPoint = "RemoteEndPoint"
+        case playableMediaTypes = "PlayableMediaTypes"
+        case id = "Id"
+        case userId = "UserId"
+        case userName = "UserName"
+        case client = "Client"
+        case lastActivityDate = "LastActivityDate"
+        case lastPlaybackCheckIn = "LastPlaybackCheckIn"
+        case lastPausedDate = "LastPausedDate"
+        case deviceName = "DeviceName"
+        case deviceType = "DeviceType"
+        case nowPlayingItem = "NowPlayingItem"
+        case nowViewingItem = "NowViewingItem"
+        case deviceId = "DeviceId"
+        case applicationVersion = "ApplicationVersion"
+        case transcodingInfo = "TranscodingInfo"
+        case isActive = "IsActive"
+        case supportsMediaControl = "SupportsMediaControl"
+        case supportsRemoteControl = "SupportsRemoteControl"
+        case nowPlayingQueue = "NowPlayingQueue"
+        case nowPlayingQueueFullItems = "NowPlayingQueueFullItems"
+        case hasCustomDeviceName = "HasCustomDeviceName"
+        case playlistItemId = "PlaylistItemId"
+        case serverId = "ServerId"
+        case userPrimaryImageTag = "UserPrimaryImageTag"
+        case supportedCommands = "SupportedCommands"
+    }
 }
 
 /// Additional user metadata attached to a session.
 public struct SessionUserInfo: Codable, Sendable, Equatable {
     public let userId: UUID?
     public let userName: String?
+
+    enum CodingKeys: String, CodingKey {
+        case userId = "UserId"
+        case userName = "UserName"
+    }
 }
 
 /// Queue item metadata returned by session and SyncPlay payloads.
 public struct SessionQueueItem: Codable, Sendable, Equatable {
     public let id: UUID?
     public let playlistItemId: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id = "Id"
+        case playlistItemId = "PlaylistItemId"
+    }
 }
 
 /// Active playback state for a session.
@@ -76,6 +118,21 @@ public struct SessionPlayerState: Codable, Sendable, Equatable {
     public let repeatMode: SessionRepeatMode?
     public let playbackOrder: SessionPlaybackOrder?
     public let liveStreamId: String?
+
+    enum CodingKeys: String, CodingKey {
+        case positionTicks = "PositionTicks"
+        case canSeek = "CanSeek"
+        case isPaused = "IsPaused"
+        case isMuted = "IsMuted"
+        case volumeLevel = "VolumeLevel"
+        case audioStreamIndex = "AudioStreamIndex"
+        case subtitleStreamIndex = "SubtitleStreamIndex"
+        case mediaSourceId = "MediaSourceId"
+        case playMethod = "PlayMethod"
+        case repeatMode = "RepeatMode"
+        case playbackOrder = "PlaybackOrder"
+        case liveStreamId = "LiveStreamId"
+    }
 }
 
 /// Transcoding metadata for an active session.
@@ -91,8 +148,67 @@ public struct SessionTranscodingInfo: Codable, Sendable, Equatable {
     public let width: Int?
     public let height: Int?
     public let audioChannels: Int?
-    public let hardwareAccelerationType: String?
-    public let transcodeReasons: [String]?
+    public let hardwareAccelerationType: HardwareAccelerationType?
+    public let transcodeReasons: [TranscodeReason]?
+
+    enum CodingKeys: String, CodingKey {
+        case audioCodec = "AudioCodec"
+        case videoCodec = "VideoCodec"
+        case container = "Container"
+        case isVideoDirect = "IsVideoDirect"
+        case isAudioDirect = "IsAudioDirect"
+        case bitrate = "Bitrate"
+        case framerate = "Framerate"
+        case completionPercentage = "CompletionPercentage"
+        case width = "Width"
+        case height = "Height"
+        case audioChannels = "AudioChannels"
+        case hardwareAccelerationType = "HardwareAccelerationType"
+        case transcodeReasons = "TranscodeReasons"
+    }
+}
+
+/// Hardware acceleration engines reported by transcoding sessions.
+public enum HardwareAccelerationType: String, Codable, Sendable, Equatable {
+    case none = "none"
+    case amf = "amf"
+    case qsv = "qsv"
+    case nvenc = "nvenc"
+    case v4l2m2m = "v4l2m2m"
+    case vaapi = "vaapi"
+    case videotoolbox = "videotoolbox"
+    case rkmpp = "rkmpp"
+}
+
+/// Reasons Jellyfin may need to transcode a stream.
+public enum TranscodeReason: String, Codable, Sendable, Equatable {
+    case containerNotSupported = "ContainerNotSupported"
+    case videoCodecNotSupported = "VideoCodecNotSupported"
+    case audioCodecNotSupported = "AudioCodecNotSupported"
+    case subtitleCodecNotSupported = "SubtitleCodecNotSupported"
+    case audioIsExternal = "AudioIsExternal"
+    case secondaryAudioNotSupported = "SecondaryAudioNotSupported"
+    case videoProfileNotSupported = "VideoProfileNotSupported"
+    case videoLevelNotSupported = "VideoLevelNotSupported"
+    case videoResolutionNotSupported = "VideoResolutionNotSupported"
+    case videoBitDepthNotSupported = "VideoBitDepthNotSupported"
+    case videoFramerateNotSupported = "VideoFramerateNotSupported"
+    case refFramesNotSupported = "RefFramesNotSupported"
+    case anamorphicVideoNotSupported = "AnamorphicVideoNotSupported"
+    case interlacedVideoNotSupported = "InterlacedVideoNotSupported"
+    case audioChannelsNotSupported = "AudioChannelsNotSupported"
+    case audioProfileNotSupported = "AudioProfileNotSupported"
+    case audioSampleRateNotSupported = "AudioSampleRateNotSupported"
+    case audioBitDepthNotSupported = "AudioBitDepthNotSupported"
+    case containerBitrateExceedsLimit = "ContainerBitrateExceedsLimit"
+    case videoBitrateNotSupported = "VideoBitrateNotSupported"
+    case audioBitrateNotSupported = "AudioBitrateNotSupported"
+    case unknownVideoStreamInfo = "UnknownVideoStreamInfo"
+    case unknownAudioStreamInfo = "UnknownAudioStreamInfo"
+    case directPlayError = "DirectPlayError"
+    case videoRangeTypeNotSupported = "VideoRangeTypeNotSupported"
+    case videoCodecTagNotSupported = "VideoCodecTagNotSupported"
+    case streamCountExceedsLimit = "StreamCountExceedsLimit"
 }
 
 /// General command names accepted by session command endpoints.
@@ -148,6 +264,12 @@ public struct GeneralCommand: Codable, Sendable, Equatable {
     public let controllingUserId: UUID?
     public let arguments: [String: String]?
 
+    enum CodingKeys: String, CodingKey {
+        case name = "Name"
+        case controllingUserId = "ControllingUserId"
+        case arguments = "Arguments"
+    }
+
     public init(
         name: SessionGeneralCommand? = nil,
         controllingUserId: UUID? = nil,
@@ -164,6 +286,12 @@ public struct MessageCommand: Codable, Sendable, Equatable {
     public let header: String?
     public let text: String
     public let timeoutMs: Int?
+
+    enum CodingKeys: String, CodingKey {
+        case header = "Header"
+        case text = "Text"
+        case timeoutMs = "TimeoutMs"
+    }
 
     public init(header: String? = nil, text: String, timeoutMs: Int? = nil) {
         self.header = header
@@ -464,6 +592,29 @@ public struct PlaybackStartInfo: Codable, Sendable, Equatable {
     public let nowPlayingQueue: [SessionQueueItem]?
     public let playlistItemId: String?
 
+    enum CodingKeys: String, CodingKey {
+        case canSeek = "CanSeek"
+        case itemId = "ItemId"
+        case sessionId = "SessionId"
+        case mediaSourceId = "MediaSourceId"
+        case audioStreamIndex = "AudioStreamIndex"
+        case subtitleStreamIndex = "SubtitleStreamIndex"
+        case isPaused = "IsPaused"
+        case isMuted = "IsMuted"
+        case positionTicks = "PositionTicks"
+        case playbackStartTimeTicks = "PlaybackStartTimeTicks"
+        case volumeLevel = "VolumeLevel"
+        case brightness = "Brightness"
+        case aspectRatio = "AspectRatio"
+        case playMethod = "PlayMethod"
+        case liveStreamId = "LiveStreamId"
+        case playSessionId = "PlaySessionId"
+        case repeatMode = "RepeatMode"
+        case playbackOrder = "PlaybackOrder"
+        case nowPlayingQueue = "NowPlayingQueue"
+        case playlistItemId = "PlaylistItemId"
+    }
+
     public init(
         canSeek: Bool? = nil,
         itemId: String? = nil,
@@ -525,6 +676,19 @@ public struct PlaybackStopInfo: Codable, Sendable, Equatable {
     public let playlistItemId: String?
     public let nowPlayingQueue: [SessionQueueItem]?
 
+    enum CodingKeys: String, CodingKey {
+        case itemId = "ItemId"
+        case sessionId = "SessionId"
+        case mediaSourceId = "MediaSourceId"
+        case positionTicks = "PositionTicks"
+        case liveStreamId = "LiveStreamId"
+        case playSessionId = "PlaySessionId"
+        case failed = "Failed"
+        case nextMediaType = "NextMediaType"
+        case playlistItemId = "PlaylistItemId"
+        case nowPlayingQueue = "NowPlayingQueue"
+    }
+
     public init(
         itemId: String? = nil,
         sessionId: String? = nil,
@@ -557,6 +721,14 @@ public struct SyncPlayGroup: Codable, Sendable, Equatable {
     public let state: SyncPlayGroupState?
     public let participants: [String]?
     public let lastUpdatedAt: Date?
+
+    enum CodingKeys: String, CodingKey {
+        case groupId = "GroupId"
+        case groupName = "GroupName"
+        case state = "State"
+        case participants = "Participants"
+        case lastUpdatedAt = "LastUpdatedAt"
+    }
 }
 
 /// SyncPlay group states.
@@ -571,6 +743,10 @@ public enum SyncPlayGroupState: String, Codable, Sendable, Equatable {
 public struct SyncPlayNewGroupRequest: Codable, Sendable, Equatable {
     public let groupName: String?
 
+    enum CodingKeys: String, CodingKey {
+        case groupName = "GroupName"
+    }
+
     public init(groupName: String? = nil) {
         self.groupName = groupName
     }
@@ -579,6 +755,10 @@ public struct SyncPlayNewGroupRequest: Codable, Sendable, Equatable {
 /// Body model for `/SyncPlay/Join`.
 public struct SyncPlayJoinGroupRequest: Codable, Sendable, Equatable {
     public let groupId: String?
+
+    enum CodingKeys: String, CodingKey {
+        case groupId = "GroupId"
+    }
 
     public init(groupId: String? = nil) {
         self.groupId = groupId
@@ -591,6 +771,13 @@ public struct SyncPlayTimingRequest: Codable, Sendable, Equatable {
     public let positionTicks: Int64?
     public let isPlaying: Bool?
     public let playlistItemId: String?
+
+    enum CodingKeys: String, CodingKey {
+        case when = "When"
+        case positionTicks = "PositionTicks"
+        case isPlaying = "IsPlaying"
+        case playlistItemId = "PlaylistItemId"
+    }
 
     public init(
         when: Date? = nil,
@@ -609,6 +796,10 @@ public struct SyncPlayTimingRequest: Codable, Sendable, Equatable {
 public struct SyncPlayPingRequest: Codable, Sendable, Equatable {
     public let ping: Int?
 
+    enum CodingKeys: String, CodingKey {
+        case ping = "Ping"
+    }
+
     public init(ping: Int? = nil) {
         self.ping = ping
     }
@@ -618,6 +809,11 @@ public struct SyncPlayPingRequest: Codable, Sendable, Equatable {
 public struct SyncPlayQueueRequest: Codable, Sendable, Equatable {
     public let itemIds: [String]?
     public let mode: SyncPlayQueueMode?
+
+    enum CodingKeys: String, CodingKey {
+        case itemIds = "ItemIds"
+        case mode = "Mode"
+    }
 
     public init(itemIds: [String]? = nil, mode: SyncPlayQueueMode? = nil) {
         self.itemIds = itemIds
@@ -636,6 +832,11 @@ public struct SyncPlayMovePlaylistItemRequest: Codable, Sendable, Equatable {
     public let playlistItemId: String?
     public let newIndex: Int?
 
+    enum CodingKeys: String, CodingKey {
+        case playlistItemId = "PlaylistItemId"
+        case newIndex = "NewIndex"
+    }
+
     public init(playlistItemId: String? = nil, newIndex: Int? = nil) {
         self.playlistItemId = playlistItemId
         self.newIndex = newIndex
@@ -645,6 +846,10 @@ public struct SyncPlayMovePlaylistItemRequest: Codable, Sendable, Equatable {
 /// Body model for `/SyncPlay/NextItem` and `/SyncPlay/PreviousItem`.
 public struct SyncPlayPlaylistItemRequest: Codable, Sendable, Equatable {
     public let playlistItemId: String?
+
+    enum CodingKeys: String, CodingKey {
+        case playlistItemId = "PlaylistItemId"
+    }
 
     public init(playlistItemId: String? = nil) {
         self.playlistItemId = playlistItemId
@@ -658,6 +863,10 @@ public typealias SyncPlaySetPlaylistItemRequest = SyncPlayPlaylistItemRequest
 public struct SyncPlaySeekRequest: Codable, Sendable, Equatable {
     public let positionTicks: Int64?
 
+    enum CodingKeys: String, CodingKey {
+        case positionTicks = "PositionTicks"
+    }
+
     public init(positionTicks: Int64? = nil) {
         self.positionTicks = positionTicks
     }
@@ -667,6 +876,10 @@ public struct SyncPlaySeekRequest: Codable, Sendable, Equatable {
 public struct SyncPlaySetRepeatModeRequest: Codable, Sendable, Equatable {
     public let mode: SessionRepeatMode?
 
+    enum CodingKeys: String, CodingKey {
+        case mode = "Mode"
+    }
+
     public init(mode: SessionRepeatMode? = nil) {
         self.mode = mode
     }
@@ -675,6 +888,10 @@ public struct SyncPlaySetRepeatModeRequest: Codable, Sendable, Equatable {
 /// Body model for `/SyncPlay/SetShuffleMode`.
 public struct SyncPlaySetShuffleModeRequest: Codable, Sendable, Equatable {
     public let mode: SyncPlayShuffleMode?
+
+    enum CodingKeys: String, CodingKey {
+        case mode = "Mode"
+    }
 
     public init(mode: SyncPlayShuffleMode? = nil) {
         self.mode = mode
@@ -693,6 +910,12 @@ public struct SyncPlaySetNewQueueRequest: Codable, Sendable, Equatable {
     public let playingItemPosition: Int?
     public let startPositionTicks: Int64?
 
+    enum CodingKeys: String, CodingKey {
+        case playingQueue = "PlayingQueue"
+        case playingItemPosition = "PlayingItemPosition"
+        case startPositionTicks = "StartPositionTicks"
+    }
+
     public init(
         playingQueue: [SessionQueueItem]? = nil,
         playingItemPosition: Int? = nil,
@@ -710,6 +933,12 @@ public struct SyncPlayRemoveFromPlaylistRequest: Codable, Sendable, Equatable {
     public let clearPlaylist: Bool?
     public let clearPlayingItem: Bool?
 
+    enum CodingKeys: String, CodingKey {
+        case playlistItemIds = "PlaylistItemIds"
+        case clearPlaylist = "ClearPlaylist"
+        case clearPlayingItem = "ClearPlayingItem"
+    }
+
     public init(
         playlistItemIds: [String]? = nil,
         clearPlaylist: Bool? = nil,
@@ -724,6 +953,10 @@ public struct SyncPlayRemoveFromPlaylistRequest: Codable, Sendable, Equatable {
 /// Body model for `/SyncPlay/SetIgnoreWait`.
 public struct SyncPlaySetIgnoreWaitRequest: Codable, Sendable, Equatable {
     public let ignoreWait: Bool?
+
+    enum CodingKeys: String, CodingKey {
+        case ignoreWait = "IgnoreWait"
+    }
 
     public init(ignoreWait: Bool? = nil) {
         self.ignoreWait = ignoreWait

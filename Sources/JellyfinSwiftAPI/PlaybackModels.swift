@@ -16,6 +16,22 @@ public struct PlaybackInfoRequest: Codable, Sendable, Equatable {
     public let allowAudioStreamCopy: Bool?
     public let autoOpenLiveStream: Bool?
 
+    enum CodingKeys: String, CodingKey {
+        case maxStreamingBitrate = "MaxStreamingBitrate"
+        case startTimeTicks = "StartTimeTicks"
+        case audioStreamIndex = "AudioStreamIndex"
+        case subtitleStreamIndex = "SubtitleStreamIndex"
+        case maxAudioChannels = "MaxAudioChannels"
+        case mediaSourceId = "MediaSourceId"
+        case liveStreamId = "LiveStreamId"
+        case enableDirectPlay = "EnableDirectPlay"
+        case enableDirectStream = "EnableDirectStream"
+        case enableTranscoding = "EnableTranscoding"
+        case allowVideoStreamCopy = "AllowVideoStreamCopy"
+        case allowAudioStreamCopy = "AllowAudioStreamCopy"
+        case autoOpenLiveStream = "AutoOpenLiveStream"
+    }
+
     public init(
         maxStreamingBitrate: Int? = nil,
         startTimeTicks: Int64? = nil,
@@ -281,6 +297,12 @@ public struct PlaybackInfoResponse: Codable, Sendable, Equatable {
     public let mediaSources: [MediaSource]
     public let playSessionId: String?
     public let errorCode: PlaybackErrorCode?
+
+    enum CodingKeys: String, CodingKey {
+        case mediaSources = "MediaSources"
+        case playSessionId = "PlaySessionId"
+        case errorCode = "ErrorCode"
+    }
 }
 
 /// Minimal media-source description used by playback-info responses.
@@ -296,6 +318,20 @@ public struct MediaSource: Codable, Sendable, Equatable {
     public let bitrate: Int?
     public let transcodingUrl: String?
     public let transcodingContainer: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id = "Id"
+        case path = "Path"
+        case container = "Container"
+        case name = "Name"
+        case supportsTranscoding = "SupportsTranscoding"
+        case supportsDirectStream = "SupportsDirectStream"
+        case supportsDirectPlay = "SupportsDirectPlay"
+        case mediaStreams = "MediaStreams"
+        case bitrate = "Bitrate"
+        case transcodingUrl = "TranscodingUrl"
+        case transcodingContainer = "TranscodingContainer"
+    }
 }
 
 /// Minimal media-stream description used by playback-info responses.
@@ -311,8 +347,34 @@ public struct MediaStream: Codable, Sendable, Equatable {
     public let isForced: Bool?
     public let width: Int?
     public let height: Int?
-    public let type: String?
+    public let type: MediaStreamType?
     public let index: Int?
+
+    enum CodingKeys: String, CodingKey {
+        case codec = "Codec"
+        case language = "Language"
+        case title = "Title"
+        case displayTitle = "DisplayTitle"
+        case bitRate = "BitRate"
+        case channels = "Channels"
+        case sampleRate = "SampleRate"
+        case isDefault = "IsDefault"
+        case isForced = "IsForced"
+        case width = "Width"
+        case height = "Height"
+        case type = "Type"
+        case index = "Index"
+    }
+}
+
+/// Media-stream categories surfaced by Jellyfin playback metadata.
+public enum MediaStreamType: String, Codable, Sendable, Equatable {
+    case audio = "Audio"
+    case video = "Video"
+    case subtitle = "Subtitle"
+    case embeddedImage = "EmbeddedImage"
+    case data = "Data"
+    case lyric = "Lyric"
 }
 
 /// Playback resolution errors surfaced by Jellyfin.
@@ -328,6 +390,13 @@ public struct FontFile: Codable, Sendable, Equatable {
     public let size: Int64?
     public let dateCreated: Date?
     public let dateModified: Date?
+
+    enum CodingKeys: String, CodingKey {
+        case name = "Name"
+        case size = "Size"
+        case dateCreated = "DateCreated"
+        case dateModified = "DateModified"
+    }
 }
 
 /// Playback media segment metadata.
@@ -337,6 +406,14 @@ public struct MediaSegment: Codable, Sendable, Equatable {
     public let type: MediaSegmentType?
     public let startTicks: Int64?
     public let endTicks: Int64?
+
+    enum CodingKeys: String, CodingKey {
+        case id = "Id"
+        case itemId = "ItemId"
+        case type = "Type"
+        case startTicks = "StartTicks"
+        case endTicks = "EndTicks"
+    }
 }
 
 /// Segment categories emitted by Jellyfin.
@@ -353,6 +430,11 @@ public enum MediaSegmentType: String, Codable, Sendable, Equatable {
 public struct Lyric: Codable, Sendable, Equatable {
     public let metadata: LyricMetadata?
     public let lyrics: [LyricLine]
+
+    enum CodingKeys: String, CodingKey {
+        case metadata = "Metadata"
+        case lyrics = "Lyrics"
+    }
 }
 
 /// High-level lyric metadata.
@@ -367,6 +449,19 @@ public struct LyricMetadata: Codable, Sendable, Equatable {
     public let creator: String?
     public let version: String?
     public let isSynced: Bool?
+
+    enum CodingKeys: String, CodingKey {
+        case artist = "Artist"
+        case album = "Album"
+        case title = "Title"
+        case author = "Author"
+        case length = "Length"
+        case by = "By"
+        case offset = "Offset"
+        case creator = "Creator"
+        case version = "Version"
+        case isSynced = "IsSynced"
+    }
 }
 
 /// A single lyric line.
@@ -374,6 +469,12 @@ public struct LyricLine: Codable, Sendable, Equatable {
     public let text: String?
     public let start: Int64?
     public let cues: [LyricLineCue]?
+
+    enum CodingKeys: String, CodingKey {
+        case text = "Text"
+        case start = "Start"
+        case cues = "Cues"
+    }
 }
 
 /// Cue timing for a portion of a lyric line.
@@ -382,6 +483,13 @@ public struct LyricLineCue: Codable, Sendable, Equatable {
     public let endPosition: Int?
     public let start: Int64?
     public let end: Int64?
+
+    enum CodingKeys: String, CodingKey {
+        case position = "Position"
+        case endPosition = "EndPosition"
+        case start = "Start"
+        case end = "End"
+    }
 }
 
 /// A remote lyric search result.
@@ -389,6 +497,12 @@ public struct RemoteLyricInfo: Codable, Sendable, Equatable {
     public let id: String?
     public let providerName: String?
     public let lyrics: Lyric?
+
+    enum CodingKeys: String, CodingKey {
+        case id = "Id"
+        case providerName = "ProviderName"
+        case lyrics = "Lyrics"
+    }
 }
 
 /// A remote subtitle search result.
@@ -409,6 +523,25 @@ public struct RemoteSubtitleInfo: Codable, Sendable, Equatable {
     public let machineTranslated: Bool?
     public let forced: Bool?
     public let hearingImpaired: Bool?
+
+    enum CodingKeys: String, CodingKey {
+        case threeLetterISOLanguageName = "ThreeLetterISOLanguageName"
+        case id = "Id"
+        case providerName = "ProviderName"
+        case name = "Name"
+        case format = "Format"
+        case author = "Author"
+        case comment = "Comment"
+        case dateCreated = "DateCreated"
+        case communityRating = "CommunityRating"
+        case frameRate = "FrameRate"
+        case downloadCount = "DownloadCount"
+        case isHashMatch = "IsHashMatch"
+        case aiTranslated = "AiTranslated"
+        case machineTranslated = "MachineTranslated"
+        case forced = "Forced"
+        case hearingImpaired = "HearingImpaired"
+    }
 }
 
 /// Request for subtitle stream retrieval.
@@ -451,6 +584,14 @@ public struct UploadSubtitleRequest: Codable, Sendable, Equatable {
     public let isHearingImpaired: Bool?
     public let data: String
 
+    enum CodingKeys: String, CodingKey {
+        case language = "Language"
+        case format = "Format"
+        case isForced = "IsForced"
+        case isHearingImpaired = "IsHearingImpaired"
+        case data = "Data"
+    }
+
     public init(
         language: String? = nil,
         format: String,
@@ -480,6 +621,21 @@ public struct OpenLiveStreamRequest: Codable, Sendable, Equatable {
     public let enableDirectPlay: Bool?
     public let enableDirectStream: Bool?
     public let alwaysBurnInSubtitleWhenTranscoding: Bool?
+
+    enum CodingKeys: String, CodingKey {
+        case openToken = "OpenToken"
+        case userID = "UserID"
+        case playSessionId = "PlaySessionId"
+        case maxStreamingBitrate = "MaxStreamingBitrate"
+        case startTimeTicks = "StartTimeTicks"
+        case audioStreamIndex = "AudioStreamIndex"
+        case subtitleStreamIndex = "SubtitleStreamIndex"
+        case maxAudioChannels = "MaxAudioChannels"
+        case itemID = "ItemID"
+        case enableDirectPlay = "EnableDirectPlay"
+        case enableDirectStream = "EnableDirectStream"
+        case alwaysBurnInSubtitleWhenTranscoding = "AlwaysBurnInSubtitleWhenTranscoding"
+    }
 
     public init(
         openToken: String? = nil,
@@ -513,6 +669,10 @@ public struct OpenLiveStreamRequest: Codable, Sendable, Equatable {
 /// Live stream opening response.
 public struct LiveStreamResponse: Codable, Sendable, Equatable {
     public let mediaSource: MediaSource?
+
+    enum CodingKeys: String, CodingKey {
+        case mediaSource = "MediaSource"
+    }
 }
 
 /// Request for dynamic HLS audio segment retrieval.

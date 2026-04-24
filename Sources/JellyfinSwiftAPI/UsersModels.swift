@@ -16,6 +16,23 @@ public struct User: Codable, Sendable, Equatable {
     public let configuration: UserConfiguration?
     public let policy: UserPolicy?
     public let primaryImageAspectRatio: Double?
+
+    enum CodingKeys: String, CodingKey {
+        case name = "Name"
+        case serverId = "ServerId"
+        case serverName = "ServerName"
+        case id = "Id"
+        case primaryImageTag = "PrimaryImageTag"
+        case hasPassword = "HasPassword"
+        case hasConfiguredPassword = "HasConfiguredPassword"
+        case hasConfiguredEasyPassword = "HasConfiguredEasyPassword"
+        case enableAutoLogin = "EnableAutoLogin"
+        case lastLoginDate = "LastLoginDate"
+        case lastActivityDate = "LastActivityDate"
+        case configuration = "Configuration"
+        case policy = "Policy"
+        case primaryImageAspectRatio = "PrimaryImageAspectRatio"
+    }
 }
 
 /// User configuration settings.
@@ -36,6 +53,25 @@ public struct UserConfiguration: Codable, Sendable, Equatable {
     public let rememberSubtitleSelections: Bool
     public let enableNextEpisodeAutoPlay: Bool
     public let castReceiverId: String?
+
+    enum CodingKeys: String, CodingKey {
+        case audioLanguagePreference = "AudioLanguagePreference"
+        case playDefaultAudioTrack = "PlayDefaultAudioTrack"
+        case subtitleLanguagePreference = "SubtitleLanguagePreference"
+        case displayMissingEpisodes = "DisplayMissingEpisodes"
+        case groupedFolders = "GroupedFolders"
+        case subtitleMode = "SubtitleMode"
+        case displayCollectionsView = "DisplayCollectionsView"
+        case enableLocalPassword = "EnableLocalPassword"
+        case orderedViews = "OrderedViews"
+        case latestItemsExcludes = "LatestItemsExcludes"
+        case myMediaExcludes = "MyMediaExcludes"
+        case hidePlayedInLatest = "HidePlayedInLatest"
+        case rememberAudioSelections = "RememberAudioSelections"
+        case rememberSubtitleSelections = "RememberSubtitleSelections"
+        case enableNextEpisodeAutoPlay = "EnableNextEpisodeAutoPlay"
+        case castReceiverId = "CastReceiverId"
+    }
 }
 
 /// Subtitle playback behavior preference.
@@ -93,6 +129,53 @@ public struct UserPolicy: Codable, Sendable, Equatable {
     public let authenticationProviderId: String
     public let passwordResetProviderId: String
     public let syncPlayAccess: SyncPlayUserAccessType
+
+    enum CodingKeys: String, CodingKey {
+        case isAdministrator = "IsAdministrator"
+        case isHidden = "IsHidden"
+        case enableCollectionManagement = "EnableCollectionManagement"
+        case enableSubtitleManagement = "EnableSubtitleManagement"
+        case enableLyricManagement = "EnableLyricManagement"
+        case isDisabled = "IsDisabled"
+        case maxParentalRating = "MaxParentalRating"
+        case maxParentalSubRating = "MaxParentalSubRating"
+        case blockedTags = "BlockedTags"
+        case allowedTags = "AllowedTags"
+        case enableUserPreferenceAccess = "EnableUserPreferenceAccess"
+        case accessSchedules = "AccessSchedules"
+        case blockUnratedItems = "BlockUnratedItems"
+        case enableRemoteControlOfOtherUsers = "EnableRemoteControlOfOtherUsers"
+        case enableSharedDeviceControl = "EnableSharedDeviceControl"
+        case enableRemoteAccess = "EnableRemoteAccess"
+        case enableLiveTvManagement = "EnableLiveTvManagement"
+        case enableLiveTvAccess = "EnableLiveTvAccess"
+        case enableMediaPlayback = "EnableMediaPlayback"
+        case enableAudioPlaybackTranscoding = "EnableAudioPlaybackTranscoding"
+        case enableVideoPlaybackTranscoding = "EnableVideoPlaybackTranscoding"
+        case enablePlaybackRemuxing = "EnablePlaybackRemuxing"
+        case forceRemoteSourceTranscoding = "ForceRemoteSourceTranscoding"
+        case enableContentDeletion = "EnableContentDeletion"
+        case enableContentDeletionFromFolders = "EnableContentDeletionFromFolders"
+        case enableContentDownloading = "EnableContentDownloading"
+        case enableSyncTranscoding = "EnableSyncTranscoding"
+        case enableMediaConversion = "EnableMediaConversion"
+        case enabledDevices = "EnabledDevices"
+        case enableAllDevices = "EnableAllDevices"
+        case enabledChannels = "EnabledChannels"
+        case enableAllChannels = "EnableAllChannels"
+        case enabledFolders = "EnabledFolders"
+        case enableAllFolders = "EnableAllFolders"
+        case invalidLoginAttemptCount = "InvalidLoginAttemptCount"
+        case loginAttemptsBeforeLockout = "LoginAttemptsBeforeLockout"
+        case maxActiveSessions = "MaxActiveSessions"
+        case enablePublicSharing = "EnablePublicSharing"
+        case blockedMediaFolders = "BlockedMediaFolders"
+        case blockedChannels = "BlockedChannels"
+        case remoteClientBitrateLimit = "RemoteClientBitrateLimit"
+        case authenticationProviderId = "AuthenticationProviderId"
+        case passwordResetProviderId = "PasswordResetProviderId"
+        case syncPlayAccess = "SyncPlayAccess"
+    }
 }
 
 /// Allowed SyncPlay access for a user.
@@ -109,6 +192,14 @@ public struct AccessSchedule: Codable, Sendable, Equatable {
     public let dayOfWeek: DynamicDayOfWeek
     public let startHour: Double
     public let endHour: Double
+
+    enum CodingKeys: String, CodingKey {
+        case id = "Id"
+        case userId = "UserId"
+        case dayOfWeek = "DayOfWeek"
+        case startHour = "StartHour"
+        case endHour = "EndHour"
+    }
 }
 
 /// Supported day-of-week values for access schedules.
@@ -143,6 +234,12 @@ public struct DeviceQueryResult: Codable, Sendable, Equatable {
     public let items: [DeviceInfo]
     public let totalRecordCount: Int
     public let startIndex: Int
+
+    enum CodingKeys: String, CodingKey {
+        case items = "Items"
+        case totalRecordCount = "TotalRecordCount"
+        case startIndex = "StartIndex"
+    }
 }
 
 /// Device information entry.
@@ -158,6 +255,20 @@ public struct DeviceInfo: Codable, Sendable, Equatable {
     public let dateLastActivity: Date?
     public let capabilities: ClientCapabilities?
     public let iconUrl: String?
+
+    enum CodingKeys: String, CodingKey {
+        case name = "Name"
+        case customName = "CustomName"
+        case accessToken = "AccessToken"
+        case id = "Id"
+        case lastUserName = "LastUserName"
+        case appName = "AppName"
+        case appVersion = "AppVersion"
+        case lastUserId = "LastUserId"
+        case dateLastActivity = "DateLastActivity"
+        case capabilities = "Capabilities"
+        case iconUrl = "IconUrl"
+    }
 }
 
 /// Client capability metadata.
@@ -168,6 +279,15 @@ public struct ClientCapabilities: Codable, Sendable, Equatable {
     public let supportsPersistentIdentifier: Bool?
     public let appStoreUrl: String?
     public let iconUrl: String?
+
+    enum CodingKeys: String, CodingKey {
+        case playableMediaTypes = "PlayableMediaTypes"
+        case supportedCommands = "SupportedCommands"
+        case supportsMediaControl = "SupportsMediaControl"
+        case supportsPersistentIdentifier = "SupportsPersistentIdentifier"
+        case appStoreUrl = "AppStoreUrl"
+        case iconUrl = "IconUrl"
+    }
 }
 
 /// Supported media types.
@@ -184,6 +304,12 @@ public struct DeviceOptions: Codable, Sendable, Equatable {
     public let id: Int
     public let deviceId: String?
     public let customName: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id = "Id"
+        case deviceId = "DeviceId"
+        case customName = "CustomName"
+    }
 }
 
 /// Display preferences for a user/client pair.
@@ -202,6 +328,23 @@ public struct DisplayPreferences: Codable, Sendable, Equatable {
     public let sortOrder: SortOrder
     public let showSidebar: Bool
     public let client: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id = "Id"
+        case viewType = "ViewType"
+        case sortBy = "SortBy"
+        case indexBy = "IndexBy"
+        case rememberIndexing = "RememberIndexing"
+        case primaryImageHeight = "PrimaryImageHeight"
+        case primaryImageWidth = "PrimaryImageWidth"
+        case customPrefs = "CustomPrefs"
+        case scrollDirection = "ScrollDirection"
+        case showBackdrop = "ShowBackdrop"
+        case rememberSorting = "RememberSorting"
+        case sortOrder = "SortOrder"
+        case showSidebar = "ShowSidebar"
+        case client = "Client"
+    }
 }
 
 /// Display scroll direction preference.
@@ -222,4 +365,11 @@ public struct UpdateUserPasswordRequest: Codable, Sendable, Equatable {
     public let currentPw: String?
     public let newPw: String?
     public let resetPassword: Bool
+
+    enum CodingKeys: String, CodingKey {
+        case currentPassword = "CurrentPassword"
+        case currentPw = "CurrentPw"
+        case newPw = "NewPw"
+        case resetPassword = "ResetPassword"
+    }
 }

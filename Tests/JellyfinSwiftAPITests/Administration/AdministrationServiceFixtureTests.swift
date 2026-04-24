@@ -21,6 +21,8 @@ final class AdministrationServiceFixtureTests: XCTestCase {
         let decoded = try JellyfinJSONCoder.decoder().decode([ScheduledTask].self, from: data)
 
         XCTAssertEqual(decoded.first?.name, "Scan Library")
+        XCTAssertEqual(decoded.first?.state, .idle)
+        XCTAssertEqual(decoded.first?.triggers?.first?.type, .dailyTrigger)
     }
 
     func testPluginsFixtureDecodes() throws {
@@ -28,6 +30,7 @@ final class AdministrationServiceFixtureTests: XCTestCase {
         let decoded = try JellyfinJSONCoder.decoder().decode([PluginInfo].self, from: data)
 
         XCTAssertEqual(decoded.first?.name, "Intro Skipper")
+        XCTAssertEqual(decoded.first?.status, .active)
     }
 
     func testActivityLogFixtureDecodes() throws {
@@ -35,6 +38,7 @@ final class AdministrationServiceFixtureTests: XCTestCase {
         let decoded = try JellyfinJSONCoder.decoder().decode(ActivityLogQueryResult.self, from: data)
 
         XCTAssertEqual(decoded.items.first?.name, "Library scan completed")
+        XCTAssertEqual(decoded.items.first?.severity, .information)
     }
 
     func testApiKeysFixtureDecodes() throws {

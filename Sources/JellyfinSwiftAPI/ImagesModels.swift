@@ -123,4 +123,15 @@ public struct ImageInfo: Codable, Sendable, Equatable {
     public let height: Int?
     public let width: Int?
     public let size: Int64?
+
+    enum CodingKeys: String, CodingKey {
+        case imageType = "ImageType"
+        case imageIndex = "ImageIndex"
+        case imageTag = "ImageTag"
+        case path = "Path"
+        case blurHash = "BlurHash"
+        case height = "Height"
+        case width = "Width"
+        case size = "Size"
+    }
 }

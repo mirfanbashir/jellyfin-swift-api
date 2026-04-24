@@ -185,6 +185,36 @@ public struct ProgramsQuery: Codable, Sendable, Equatable {
     public let fields: [String]
     public let enableTotalRecordCount: Bool?
 
+    enum CodingKeys: String, CodingKey {
+        case channelIDs = "ChannelIDs"
+        case userID = "UserID"
+        case minStartDate = "MinStartDate"
+        case hasAired = "HasAired"
+        case isAiring = "IsAiring"
+        case maxStartDate = "MaxStartDate"
+        case minEndDate = "MinEndDate"
+        case maxEndDate = "MaxEndDate"
+        case isMovie = "IsMovie"
+        case isSeries = "IsSeries"
+        case isNews = "IsNews"
+        case isKids = "IsKids"
+        case isSports = "IsSports"
+        case startIndex = "StartIndex"
+        case limit = "Limit"
+        case sortBy = "SortBy"
+        case sortOrder = "SortOrder"
+        case genres = "Genres"
+        case genreIDs = "GenreIDs"
+        case enableImages = "EnableImages"
+        case imageTypeLimit = "ImageTypeLimit"
+        case enableImageTypes = "EnableImageTypes"
+        case enableUserData = "EnableUserData"
+        case seriesTimerID = "SeriesTimerID"
+        case librarySeriesID = "LibrarySeriesID"
+        case fields = "Fields"
+        case enableTotalRecordCount = "EnableTotalRecordCount"
+    }
+
     public init(
         channelIDs: [String] = [],
         userID: UUID? = nil,
@@ -385,6 +415,21 @@ public struct ChannelFeatures: Codable, Sendable, Equatable {
     public let supportsLatestMedia: Bool?
     public let canFilter: Bool?
     public let supportsContentDownloading: Bool?
+
+    enum CodingKeys: String, CodingKey {
+        case name = "Name"
+        case id = "Id"
+        case canSearch = "CanSearch"
+        case mediaTypes = "MediaTypes"
+        case contentTypes = "ContentTypes"
+        case maxPageSize = "MaxPageSize"
+        case autoRefreshLevels = "AutoRefreshLevels"
+        case defaultSortFields = "DefaultSortFields"
+        case supportsSortOrderToggle = "SupportsSortOrderToggle"
+        case supportsLatestMedia = "SupportsLatestMedia"
+        case canFilter = "CanFilter"
+        case supportsContentDownloading = "SupportsContentDownloading"
+    }
 }
 
 /// Channel mapping options.
@@ -393,6 +438,13 @@ public struct ChannelMappingOptions: Codable, Sendable, Equatable {
     public let providerChannels: [NameIDPair]
     public let mappings: [NameValuePair]
     public let providerName: String?
+
+    enum CodingKeys: String, CodingKey {
+        case tunerChannels = "TunerChannels"
+        case providerChannels = "ProviderChannels"
+        case mappings = "Mappings"
+        case providerName = "ProviderName"
+    }
 }
 
 /// Request body for setting a channel mapping.
@@ -400,6 +452,12 @@ public struct SetChannelMappingRequest: Codable, Sendable, Equatable {
     public let providerId: String?
     public let tunerChannelId: String?
     public let providerChannelId: String?
+
+    enum CodingKeys: String, CodingKey {
+        case providerId = "ProviderId"
+        case tunerChannelId = "TunerChannelId"
+        case providerChannelId = "ProviderChannelId"
+    }
 
     public init(providerId: String? = nil, tunerChannelId: String? = nil, providerChannelId: String? = nil) {
         self.providerId = providerId
@@ -414,6 +472,13 @@ public struct TunerChannelMapping: Codable, Sendable, Equatable {
     public let providerChannelName: String?
     public let providerChannelId: String?
     public let id: String?
+
+    enum CodingKeys: String, CodingKey {
+        case name = "Name"
+        case providerChannelName = "ProviderChannelName"
+        case providerChannelId = "ProviderChannelId"
+        case id = "Id"
+    }
 }
 
 /// Aggregate Live TV state.
@@ -421,6 +486,12 @@ public struct LiveTVInfo: Codable, Sendable, Equatable {
     public let services: [LiveTVServiceInfo]
     public let isEnabled: Bool?
     public let enabledUsers: [String]?
+
+    enum CodingKeys: String, CodingKey {
+        case services = "Services"
+        case isEnabled = "IsEnabled"
+        case enabledUsers = "EnabledUsers"
+    }
 }
 
 /// One Live TV backend status entry.
@@ -433,12 +504,28 @@ public struct LiveTVServiceInfo: Codable, Sendable, Equatable {
     public let hasUpdateAvailable: Bool?
     public let isVisible: Bool?
     public let tuners: [String]?
+
+    enum CodingKeys: String, CodingKey {
+        case name = "Name"
+        case homePageUrl = "HomePageUrl"
+        case status = "Status"
+        case statusMessage = "StatusMessage"
+        case version = "Version"
+        case hasUpdateAvailable = "HasUpdateAvailable"
+        case isVisible = "IsVisible"
+        case tuners = "Tuners"
+    }
 }
 
 /// Guide range summary.
 public struct GuideInfo: Codable, Sendable, Equatable {
     public let startDate: Date?
     public let endDate: Date?
+
+    enum CodingKeys: String, CodingKey {
+        case startDate = "StartDate"
+        case endDate = "EndDate"
+    }
 }
 
 /// Listings provider configuration.
@@ -455,6 +542,21 @@ public struct ListingsProvider: Codable, Sendable, Equatable {
     public let enableAllTuners: Bool?
     public let preferredLanguage: String?
     public let userAgent: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id = "Id"
+        case type = "Type"
+        case username = "Username"
+        case password = "Password"
+        case listingsId = "ListingsId"
+        case zipCode = "ZipCode"
+        case country = "Country"
+        case path = "Path"
+        case enabledTuners = "EnabledTuners"
+        case enableAllTuners = "EnableAllTuners"
+        case preferredLanguage = "PreferredLanguage"
+        case userAgent = "UserAgent"
+    }
 
     public init(
         id: String? = nil,
@@ -503,6 +605,25 @@ public struct TimerInfo: Codable, Sendable, Equatable {
     public let keepUntil: KeepUntil?
     public let status: RecordingStatus?
     public let seriesTimerId: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id = "Id"
+        case type = "Type"
+        case channelId = "ChannelId"
+        case channelName = "ChannelName"
+        case programId = "ProgramId"
+        case name = "Name"
+        case overview = "Overview"
+        case startDate = "StartDate"
+        case endDate = "EndDate"
+        case serviceName = "ServiceName"
+        case priority = "Priority"
+        case prePaddingSeconds = "PrePaddingSeconds"
+        case postPaddingSeconds = "PostPaddingSeconds"
+        case keepUntil = "KeepUntil"
+        case status = "Status"
+        case seriesTimerId = "SeriesTimerId"
+    }
 
     public init(
         id: String? = nil,
@@ -563,6 +684,28 @@ public struct SeriesTimerInfo: Codable, Sendable, Equatable {
     public let keepUpTo: Int?
     public let recordNewOnly: Bool?
 
+    enum CodingKeys: String, CodingKey {
+        case id = "Id"
+        case type = "Type"
+        case channelId = "ChannelId"
+        case channelName = "ChannelName"
+        case programId = "ProgramId"
+        case name = "Name"
+        case overview = "Overview"
+        case startDate = "StartDate"
+        case endDate = "EndDate"
+        case serviceName = "ServiceName"
+        case priority = "Priority"
+        case prePaddingSeconds = "PrePaddingSeconds"
+        case postPaddingSeconds = "PostPaddingSeconds"
+        case keepUntil = "KeepUntil"
+        case recordAnyTime = "RecordAnyTime"
+        case skipEpisodesInLibrary = "SkipEpisodesInLibrary"
+        case recordAnyChannel = "RecordAnyChannel"
+        case keepUpTo = "KeepUpTo"
+        case recordNewOnly = "RecordNewOnly"
+    }
+
     public init(
         id: String? = nil,
         type: String? = nil,
@@ -611,6 +754,12 @@ public struct TimerQueryResult: Codable, Sendable, Equatable {
     public let items: [TimerInfo]
     public let totalRecordCount: Int?
     public let startIndex: Int?
+
+    enum CodingKeys: String, CodingKey {
+        case items = "Items"
+        case totalRecordCount = "TotalRecordCount"
+        case startIndex = "StartIndex"
+    }
 }
 
 /// Series timer query result wrapper.
@@ -618,6 +767,12 @@ public struct SeriesTimerQueryResult: Codable, Sendable, Equatable {
     public let items: [SeriesTimerInfo]
     public let totalRecordCount: Int?
     public let startIndex: Int?
+
+    enum CodingKeys: String, CodingKey {
+        case items = "Items"
+        case totalRecordCount = "TotalRecordCount"
+        case startIndex = "StartIndex"
+    }
 }
 
 /// Tuner host configuration.
@@ -638,6 +793,25 @@ public struct TunerHost: Codable, Sendable, Equatable {
     public let userAgent: String?
     public let ignoreDts: Bool?
     public let readAtNativeFramerate: Bool?
+
+    enum CodingKeys: String, CodingKey {
+        case id = "Id"
+        case url = "Url"
+        case type = "Type"
+        case deviceId = "DeviceId"
+        case friendlyName = "FriendlyName"
+        case importFavoritesOnly = "ImportFavoritesOnly"
+        case allowHWTranscoding = "AllowHWTranscoding"
+        case allowFmp4TranscodingContainer = "AllowFmp4TranscodingContainer"
+        case allowStreamSharing = "AllowStreamSharing"
+        case fallbackMaxStreamingBitrate = "FallbackMaxStreamingBitrate"
+        case enableStreamLooping = "EnableStreamLooping"
+        case source = "Source"
+        case tunerCount = "TunerCount"
+        case userAgent = "UserAgent"
+        case ignoreDts = "IgnoreDts"
+        case readAtNativeFramerate = "ReadAtNativeFramerate"
+    }
 
     public init(
         id: String? = nil,
