@@ -1,0 +1,35 @@
+{
+  "User": {
+    "Name": "demo",
+    "ServerId": "demo-server",
+    "ServerName": "Jellyfin Demo",
+    "Id": "5f6d5a13-4b25-4f8d-b9fb-a3b4699ef001",
+    "PrimaryImageTag": "abc123",
+    "HasPassword": true,
+    "HasConfiguredPassword": true,
+    "HasConfiguredEasyPassword": false,
+    "EnableAutoLogin": false,
+    "LastLoginDate": "2026-04-24T13:00:00Z",
+    "LastActivityDate": "2026-04-24T13:30:00Z",
+    "PrimaryImageAspectRatio": 1.0
+  },
+  "SessionInfo": {
+    "Id": "session-1",
+    "UserId": "5f6d5a13-4b25-4f8d-b9fb-a3b4699ef001",
+    "UserName": "demo",
+    "Client": "Jellyfin iOS",
+    "LastActivityDate": "2026-04-24T13:30:00Z",
+    "LastPlaybackCheckIn": "2026-04-24T13:29:00Z",
+    "LastPausedDate": null,
+    "DeviceName": "iPhone",
+    "DeviceType": "Phone",
+    "DeviceId": "device-1",
+    "ApplicationVersion": "1.0.0",
+    "IsActive": true,
+    "SupportsMediaControl": true,
+    "SupportsRemoteControl": true,
+    "ServerId": "demo-server"
+  },
+  "AccessToken": "demo-token",
+  "ServerId": "demo-server"
+}

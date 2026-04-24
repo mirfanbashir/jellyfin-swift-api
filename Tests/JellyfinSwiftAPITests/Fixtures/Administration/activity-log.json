@@ -1,0 +1,15 @@
+{
+  "Items": [
+    {
+      "Id": 1,
+      "Name": "Library scan completed",
+      "Overview": "Finished scanning",
+      "ShortOverview": "Scan complete",
+      "Type": "Information",
+      "Date": "2024-01-06T00:00:00Z",
+      "Severity": "Information"
+    }
+  ],
+  "TotalRecordCount": 1,
+  "StartIndex": 0
+}

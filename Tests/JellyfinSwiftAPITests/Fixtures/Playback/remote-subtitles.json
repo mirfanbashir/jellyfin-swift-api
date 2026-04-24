@@ -1,0 +1,20 @@
+[
+  {
+    "ThreeLetterISOLanguageName": "eng",
+    "Id": "subtitle-1",
+    "ProviderName": "OpenSubtitles",
+    "Name": "English",
+    "Format": "srt",
+    "Author": "Example",
+    "Comment": "SDH",
+    "DateCreated": "2024-01-03T00:00:00Z",
+    "CommunityRating": 4.5,
+    "FrameRate": 23.976,
+    "DownloadCount": 1234,
+    "IsHashMatch": true,
+    "AiTranslated": false,
+    "MachineTranslated": false,
+    "Forced": false,
+    "HearingImpaired": true
+  }
+]

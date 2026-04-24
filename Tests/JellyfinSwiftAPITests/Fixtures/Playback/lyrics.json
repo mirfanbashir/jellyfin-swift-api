@@ -1,0 +1,28 @@
+{
+  "Metadata": {
+    "Artist": "Example Artist",
+    "Album": "Example Album",
+    "Title": "Example Song",
+    "Author": "Example Author",
+    "Length": 210000000,
+    "IsSynced": true
+  },
+  "Lyrics": [
+    {
+      "Text": "First line",
+      "Start": 10000000,
+      "Cues": [
+        {
+          "Position": 0,
+          "EndPosition": 5,
+          "Start": 10000000,
+          "End": 14000000
+        }
+      ]
+    },
+    {
+      "Text": "Second line",
+      "Start": 20000000
+    }
+  ]
+}

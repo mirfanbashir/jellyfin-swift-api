@@ -1,0 +1,18 @@
+[
+  {
+    "Name": "Star Wars",
+    "ProviderIds": {
+      "Tmdb": "11"
+    },
+    "ProductionYear": 1977,
+    "IndexNumber": null,
+    "IndexNumberEnd": null,
+    "ParentIndexNumber": null,
+    "PremiereDate": "1977-05-25T00:00:00Z",
+    "ImageUrl": "https://example.com/star-wars.jpg",
+    "SearchProviderName": "TheMovieDB",
+    "Overview": "A space opera.",
+    "AlbumArtist": null,
+    "Artists": null
+  }
+]

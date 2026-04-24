@@ -1,0 +1,30 @@
+{
+  "MediaSources": [
+    {
+      "Id": "media-source-1",
+      "Path": "/media/movies/movie.mkv",
+      "Container": "mkv",
+      "Name": "Main File",
+      "SupportsTranscoding": true,
+      "SupportsDirectStream": true,
+      "SupportsDirectPlay": true,
+      "MediaStreams": [
+        {
+          "Codec": "h264",
+          "Language": "eng",
+          "DisplayTitle": "1080p H.264",
+          "BitRate": 8000000,
+          "Width": 1920,
+          "Height": 1080,
+          "Type": "Video",
+          "Index": 0
+        }
+      ],
+      "Bitrate": 8000000,
+      "TranscodingUrl": "/Videos/1/stream",
+      "TranscodingContainer": "ts"
+    }
+  ],
+  "PlaySessionId": "play-session",
+  "ErrorCode": null
+}

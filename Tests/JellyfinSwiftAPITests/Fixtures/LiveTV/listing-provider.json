@@ -1,0 +1,8 @@
+{
+  "Id": "provider-1",
+  "Type": "SchedulesDirect",
+  "Username": "demo",
+  "ListingsId": "lineup-1",
+  "Country": "US",
+  "EnableAllTuners": true
+}

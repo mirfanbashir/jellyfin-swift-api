@@ -1,0 +1,25 @@
+{
+  "Name": "John Williams",
+  "OriginalTitle": null,
+  "ServerId": "demo-server",
+  "Id": "5f6d5a13-4b25-4f8d-b9fb-a3b4699ef201",
+  "Etag": "artist-etag",
+  "SourceType": "Library",
+  "PlaylistItemId": null,
+  "DateCreated": "2026-04-24T10:00:00Z",
+  "DateLastMediaAdded": "2026-04-24T12:00:00Z",
+  "SortName": "Williams, John",
+  "PremiereDate": null,
+  "OfficialRating": null,
+  "Overview": "Legendary composer.",
+  "Genres": [
+    "Soundtrack"
+  ],
+  "CommunityRating": 9.5,
+  "RunTimeTicks": null,
+  "ProductionYear": null,
+  "IndexNumber": null,
+  "ParentIndexNumber": null,
+  "Type": "MusicArtist",
+  "MediaType": "Audio"
+}

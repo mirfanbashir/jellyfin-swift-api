@@ -1,0 +1,31 @@
+{
+  "Items": [
+    {
+      "Name": "Pilot",
+      "OriginalTitle": null,
+      "ServerId": "demo-server",
+      "Id": "5f6d5a13-4b25-4f8d-b9fb-a3b4699ef401",
+      "Etag": "episode-etag",
+      "SourceType": "Library",
+      "PlaylistItemId": null,
+      "DateCreated": "2026-04-01T10:00:00Z",
+      "DateLastMediaAdded": "2026-04-02T12:00:00Z",
+      "SortName": "Pilot",
+      "PremiereDate": "2026-04-01T00:00:00Z",
+      "OfficialRating": "TV-14",
+      "Overview": "The first episode.",
+      "Genres": [
+        "Drama"
+      ],
+      "CommunityRating": 8.3,
+      "RunTimeTicks": 27000000000,
+      "ProductionYear": 2026,
+      "IndexNumber": 1,
+      "ParentIndexNumber": 1,
+      "Type": "Episode",
+      "MediaType": "Video"
+    }
+  ],
+  "TotalRecordCount": 1,
+  "StartIndex": 0
+}

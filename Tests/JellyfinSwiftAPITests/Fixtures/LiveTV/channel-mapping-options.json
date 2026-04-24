@@ -1,0 +1,23 @@
+{
+  "TunerChannels": [
+    {
+      "Name": "Example Channel",
+      "ProviderChannelName": "Example Provider Channel",
+      "ProviderChannelId": "provider-7",
+      "Id": "tuner-7"
+    }
+  ],
+  "ProviderChannels": [
+    {
+      "Name": "Example Provider Channel",
+      "Id": "provider-7"
+    }
+  ],
+  "Mappings": [
+    {
+      "Name": "Example Channel",
+      "Value": "provider-7"
+    }
+  ],
+  "ProviderName": "Schedules Direct"
+}

@@ -1,0 +1,20 @@
+{
+  "Services": [
+    {
+      "Name": "HDHomeRun",
+      "HomePageUrl": "https://example.com",
+      "Status": "Ok",
+      "StatusMessage": "Online",
+      "Version": "1.0",
+      "HasUpdateAvailable": false,
+      "IsVisible": true,
+      "Tuners": [
+        "tuner-1"
+      ]
+    }
+  ],
+  "IsEnabled": true,
+  "EnabledUsers": [
+    "user-1"
+  ]
+}

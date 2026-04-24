@@ -1,0 +1,7 @@
+{
+  "GroupId": "group-1",
+  "GroupName": "Movie Night",
+  "State": "Playing",
+  "Participants": ["session-1", "session-2"],
+  "LastUpdatedAt": "2024-04-01T12:00:00Z"
+}

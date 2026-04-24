@@ -1,0 +1,16 @@
+[
+  {
+    "Id": "4A9A391D-9731-4B82-9EAF-D14BF2F4DC74",
+    "ItemId": "D2C48876-BD8F-4D6A-8734-712267F7F9F6",
+    "Type": "Intro",
+    "StartTicks": 0,
+    "EndTicks": 12000000
+  },
+  {
+    "Id": "A385AA5E-9C0A-475C-8197-347E3C3D7710",
+    "ItemId": "D2C48876-BD8F-4D6A-8734-712267F7F9F6",
+    "Type": "Outro",
+    "StartTicks": 420000000,
+    "EndTicks": 432000000
+  }
+]

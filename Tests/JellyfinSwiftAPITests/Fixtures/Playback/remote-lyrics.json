@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "remote-lyric-1",
+    "ProviderName": "EmbeddedProvider",
+    "Lyrics": {
+      "Metadata": {
+        "Title": "Example Song",
+        "Artist": "Example Artist"
+      },
+      "Lyrics": [
+        {
+          "Text": "First line",
+          "Start": 10000000
+        }
+      ]
+    }
+  }
+]

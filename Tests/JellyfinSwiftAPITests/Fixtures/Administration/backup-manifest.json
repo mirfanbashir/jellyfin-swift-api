@@ -1,0 +1,10 @@
+{
+  "ServerVersion": "10.11.8",
+  "BackupEngineVersion": "1.0.0",
+  "DateCreated": "2024-01-05T00:00:00Z",
+  "Path": "/backups/backup.zip",
+  "Options": {
+    "Metadata": true,
+    "Database": true
+  }
+}

@@ -1,0 +1,18 @@
+[
+  {
+    "Name": "Scan Library",
+    "State": "Idle",
+    "CurrentProgressPercentage": 0,
+    "Id": "task-1",
+    "Description": "Scans the media library",
+    "Category": "Library",
+    "IsHidden": false,
+    "Key": "scan-library",
+    "Triggers": [
+      {
+        "Type": "Daily",
+        "TimeOfDayTicks": 36000000000
+      }
+    ]
+  }
+]

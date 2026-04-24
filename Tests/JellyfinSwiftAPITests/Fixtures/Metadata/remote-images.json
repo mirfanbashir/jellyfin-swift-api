@@ -1,0 +1,20 @@
+{
+  "Images": [
+    {
+      "ProviderName": "TheMovieDB",
+      "Url": "https://example.com/poster.jpg",
+      "ThumbnailUrl": "https://example.com/poster-thumb.jpg",
+      "Height": 1000,
+      "Width": 750,
+      "CommunityRating": 8.7,
+      "VoteCount": 120,
+      "Language": "en",
+      "Type": "Primary",
+      "RatingType": "Score"
+    }
+  ],
+  "TotalRecordCount": 1,
+  "Providers": [
+    "TheMovieDB"
+  ]
+}

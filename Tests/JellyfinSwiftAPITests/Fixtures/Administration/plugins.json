@@ -1,0 +1,12 @@
+[
+  {
+    "Name": "Intro Skipper",
+    "Version": "1.0.0",
+    "ConfigurationFileName": "introskipper.json",
+    "Description": "Skips intros",
+    "Id": "plugin-1",
+    "CanUninstall": true,
+    "HasImage": true,
+    "Status": "Active"
+  }
+]

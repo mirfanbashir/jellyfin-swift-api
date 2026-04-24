@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "schemaRenames": {
+    "BrandingOptionsDto": "BrandingOptions",
+    "ConfigImageTypes": "TmdbClientConfiguration",
+    "CultureDto": "Culture",
+    "EndPointInfo": "EndpointInfo",
+    "FolderStorageDto": "FolderStorage",
+    "LibraryStorageDto": "LibraryStorage",
+    "SystemStorageDto": "SystemStorage",
+    "VersionInfo": "PackageVersionInfo"
+  },
+  "formatMappings": [
+    {
+      "openapiType": "boolean",
+      "swiftType": "Bool"
+    },
+    {
+      "openapiType": "integer",
+      "format": "int32",
+      "swiftType": "Int"
+    },
+    {
+      "openapiType": "integer",
+      "format": "int64",
+      "swiftType": "Int64"
+    },
+    {
+      "openapiType": "number",
+      "format": "float",
+      "swiftType": "Float"
+    },
+    {
+      "openapiType": "number",
+      "format": "double",
+      "swiftType": "Double"
+    },
+    {
+      "openapiType": "string",
+      "swiftType": "String"
+    },
+    {
+      "openapiType": "string",
+      "format": "uuid",
+      "swiftType": "UUID"
+    },
+    {
+      "openapiType": "string",
+      "format": "date-time",
+      "swiftType": "Date"
+    }
+  ],
+  "manualSchemas": {
+    "GroupUpdate": {
+      "strategy": "manualOneOfEnum"
+    },
+    "InboundWebSocketMessage": {
+      "strategy": "manualOneOfEnum"
+    },
+    "OutboundWebSocketMessage": {
+      "strategy": "manualOneOfEnum"
+    },
+    "WebSocketMessage": {
+      "strategy": "manualOneOfEnum"
+    }
+  }
+}

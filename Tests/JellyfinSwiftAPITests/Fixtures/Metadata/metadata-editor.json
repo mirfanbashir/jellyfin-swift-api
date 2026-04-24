@@ -1,0 +1,45 @@
+{
+  "ParentalRatingOptions": [
+    {
+      "Name": "PG",
+      "Value": 10,
+      "RatingScore": {
+        "score": 10,
+        "subScore": null
+      }
+    }
+  ],
+  "Countries": [
+    {
+      "Name": "United States",
+      "DisplayName": "United States",
+      "TwoLetterISORegionName": "US",
+      "ThreeLetterISORegionName": "USA"
+    }
+  ],
+  "Cultures": [
+    {
+      "Name": "en-US",
+      "DisplayName": "English (United States)",
+      "TwoLetterISOLanguageName": "en",
+      "ThreeLetterISOLanguageName": "eng",
+      "ThreeLetterISOLanguageNames": [
+        "eng"
+      ]
+    }
+  ],
+  "ExternalIdInfos": [
+    {
+      "Name": "IMDb",
+      "Key": "IMDb",
+      "Type": "Movie"
+    }
+  ],
+  "ContentType": "movies",
+  "ContentTypeOptions": [
+    {
+      "Name": "Movies",
+      "Value": "movies"
+    }
+  ]
+}

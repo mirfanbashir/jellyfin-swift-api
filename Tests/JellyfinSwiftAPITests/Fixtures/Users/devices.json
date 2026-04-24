@@ -1,0 +1,32 @@
+{
+  "Items": [
+    {
+      "Name": "iPhone",
+      "CustomName": "My iPhone",
+      "AccessToken": "device-token",
+      "Id": "device-1",
+      "LastUserName": "demo",
+      "AppName": "Jellyfin iOS",
+      "AppVersion": "1.0.0",
+      "LastUserId": "5f6d5a13-4b25-4f8d-b9fb-a3b4699ef001",
+      "DateLastActivity": "2026-04-24T13:30:00Z",
+      "Capabilities": {
+        "PlayableMediaTypes": [
+          "Video",
+          "Audio"
+        ],
+        "SupportedCommands": [
+          "Play",
+          "DisplayMessage"
+        ],
+        "SupportsMediaControl": true,
+        "SupportsPersistentIdentifier": true,
+        "AppStoreUrl": "https://apps.apple.com/example",
+        "IconUrl": "https://example.com/icon.png"
+      },
+      "IconUrl": "https://example.com/icon.png"
+    }
+  ],
+  "TotalRecordCount": 1,
+  "StartIndex": 0
+}

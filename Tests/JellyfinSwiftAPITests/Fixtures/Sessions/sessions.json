@@ -1,0 +1,30 @@
+[
+  {
+    "Id": "session-1",
+    "UserId": "D2C48876-BD8F-4D6A-8734-712267F7F9F6",
+    "UserName": "irfan",
+    "Client": "SwiftUI",
+    "DeviceName": "iPhone",
+    "DeviceId": "device-1",
+    "ApplicationVersion": "1.0.0",
+    "IsActive": true,
+    "SupportsMediaControl": true,
+    "SupportsRemoteControl": true,
+    "Capabilities": {
+      "PlayableMediaTypes": ["Audio", "Video"],
+      "SupportedCommands": ["DisplayMessage", "Play"]
+    },
+    "PlayState": {
+      "PositionTicks": 1200,
+      "CanSeek": true,
+      "PlayMethod": "DirectPlay"
+    },
+    "NowPlayingQueue": [
+      {
+        "Id": "11111111-1111-1111-1111-111111111111",
+        "PlaylistItemId": "playlist-1"
+      }
+    ],
+    "SupportedCommands": ["DisplayMessage", "Play"]
+  }
+]

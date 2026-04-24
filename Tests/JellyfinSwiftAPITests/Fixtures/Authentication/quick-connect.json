@@ -1,0 +1,10 @@
+{
+  "Authenticated": false,
+  "Secret": "secret-1234",
+  "Code": "ABCD",
+  "DeviceId": "device-1",
+  "DeviceName": "iPhone",
+  "AppName": "Jellyfin iOS",
+  "AppVersion": "1.0.0",
+  "DateAdded": "2026-04-24T13:00:00Z"
+}

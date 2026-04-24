@@ -1,0 +1,25 @@
+{
+  "ServerName": "Jellyfin Test Server",
+  "UICulture": "en-US",
+  "MetadataCountryCode": "US",
+  "PreferredMetadataLanguage": "en",
+  "MetadataOptions": [
+    {
+      "ItemType": "Movie",
+      "MetadataFetcherOrder": ["TheMovieDb"]
+    }
+  ],
+  "ContentTypes": [
+    {
+      "Name": "Movie",
+      "Value": "video"
+    }
+  ],
+  "PluginRepositories": [
+    {
+      "Name": "Jellyfin Repo",
+      "Url": "https://repo.example.com",
+      "Enabled": true
+    }
+  ]
+}

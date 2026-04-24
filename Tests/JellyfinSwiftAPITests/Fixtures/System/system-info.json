@@ -1,0 +1,64 @@
+{
+  "LocalAddress": "http://jellyfin.local:8096",
+  "ServerName": "Jellyfin Demo",
+  "Version": "10.11.8",
+  "ProductName": "Jellyfin Server",
+  "OperatingSystem": "Linux",
+  "Id": "demo-server",
+  "StartupWizardCompleted": true,
+  "PackageName": "jellyfin",
+  "HasPendingRestart": false,
+  "IsShuttingDown": false,
+  "SupportsLibraryMonitor": true,
+  "WebSocketPortNumber": 8096,
+  "CompletedInstallations": [
+    {
+      "Guid": "5f6d5a13-4b25-4f8d-b9fb-a3b4699ef001",
+      "Name": "TheTVDB",
+      "Version": "1.2.3",
+      "Changelog": "Updated metadata provider.",
+      "SourceUrl": "https://example.com/packages/thetvdb.zip",
+      "Checksum": "abc123",
+      "PackageInfo": {
+        "name": "TheTVDB",
+        "description": "Metadata provider plugin.",
+        "overview": "Provides metadata from TheTVDB.",
+        "owner": "Jellyfin",
+        "category": "Metadata",
+        "guid": "5f6d5a13-4b25-4f8d-b9fb-a3b4699ef001",
+        "versions": [
+          {
+            "version": "1.2.3",
+            "VersionNumber": "1.2.3",
+            "changelog": "Updated metadata provider.",
+            "targetAbi": "10.11.0",
+            "sourceUrl": "https://example.com/packages/thetvdb.zip",
+            "checksum": "abc123",
+            "timestamp": "2026-04-01T12:00:00Z",
+            "repositoryName": "Official",
+            "repositoryUrl": "https://repo.example.com"
+          }
+        ],
+        "imageUrl": "https://example.com/packages/thetvdb.png"
+      }
+    }
+  ],
+  "CanSelfRestart": true,
+  "CanLaunchWebBrowser": false,
+  "ProgramDataPath": "/var/lib/jellyfin",
+  "WebPath": "/usr/share/jellyfin/web",
+  "ItemsByNamePath": "/var/lib/jellyfin/root/default",
+  "CachePath": "/var/cache/jellyfin",
+  "LogPath": "/var/log/jellyfin",
+  "InternalMetadataPath": "/var/lib/jellyfin/metadata",
+  "TranscodingTempPath": "/var/cache/jellyfin/transcodes",
+  "CastReceiverApplications": [
+    {
+      "Id": "CC1AD845",
+      "Name": "Default Media Receiver"
+    }
+  ],
+  "HasUpdateAvailable": false,
+  "EncoderLocation": "System",
+  "SystemArchitecture": "X64"
+}

@@ -1,0 +1,16 @@
+[
+  {
+    "Name": "demo",
+    "ServerId": "demo-server",
+    "ServerName": "Jellyfin Demo",
+    "Id": "5f6d5a13-4b25-4f8d-b9fb-a3b4699ef001",
+    "PrimaryImageTag": "abc123",
+    "HasPassword": true,
+    "HasConfiguredPassword": true,
+    "HasConfiguredEasyPassword": false,
+    "EnableAutoLogin": false,
+    "LastLoginDate": "2026-04-24T13:00:00Z",
+    "LastActivityDate": "2026-04-24T13:30:00Z",
+    "PrimaryImageAspectRatio": 1.0
+  }
+]

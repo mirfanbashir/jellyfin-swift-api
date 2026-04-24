@@ -1,0 +1,18 @@
+{
+  "Id": "home",
+  "ViewType": "Poster",
+  "SortBy": "SortName",
+  "IndexBy": "None",
+  "RememberIndexing": true,
+  "PrimaryImageHeight": 300,
+  "PrimaryImageWidth": 200,
+  "CustomPrefs": {
+    "theme": "dark"
+  },
+  "ScrollDirection": "Horizontal",
+  "ShowBackdrop": true,
+  "RememberSorting": true,
+  "SortOrder": "Ascending",
+  "ShowSidebar": true,
+  "Client": "jellyfin-ios"
+}

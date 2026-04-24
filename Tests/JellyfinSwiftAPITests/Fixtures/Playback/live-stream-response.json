@@ -1,0 +1,11 @@
+{
+  "MediaSource": {
+    "Id": "live-source-1",
+    "Container": "ts",
+    "Name": "Live Stream",
+    "SupportsTranscoding": true,
+    "SupportsDirectStream": true,
+    "SupportsDirectPlay": false,
+    "Bitrate": 6000000
+  }
+}

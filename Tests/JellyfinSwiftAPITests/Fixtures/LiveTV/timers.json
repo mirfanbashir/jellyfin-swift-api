@@ -1,0 +1,19 @@
+{
+  "Items": [
+    {
+      "Id": "timer-1",
+      "Type": "Program",
+      "ChannelId": "channel-1",
+      "ChannelName": "News",
+      "ProgramId": "program-1",
+      "Name": "Evening News",
+      "StartDate": "2024-01-03T18:00:00Z",
+      "EndDate": "2024-01-03T18:30:00Z",
+      "Priority": 1,
+      "KeepUntil": "UntilDeleted",
+      "Status": "New"
+    }
+  ],
+  "TotalRecordCount": 1,
+  "StartIndex": 0
+}

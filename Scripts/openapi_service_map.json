@@ -1,0 +1,141 @@
+{
+  "version": 1,
+  "services": [
+    {
+      "name": "AuthenticationService",
+      "includeTags": [
+        "QuickConnect"
+      ],
+      "includeOperationIds": [
+        "AuthenticateUserByName",
+        "AuthenticateWithQuickConnect",
+        "ForgotPassword",
+        "ForgotPasswordPin",
+        "GetPublicUsers",
+        "GetPasswordResetProviders",
+        "GetAuthProviders"
+      ]
+    },
+    {
+      "name": "UsersService",
+      "includeTags": [
+        "User",
+        "Devices",
+        "DisplayPreferences"
+      ],
+      "excludeOperationIds": [
+        "AuthenticateUserByName",
+        "AuthenticateWithQuickConnect",
+        "ForgotPassword",
+        "ForgotPasswordPin",
+        "GetPublicUsers"
+      ]
+    },
+    {
+      "name": "SessionsService",
+      "includeTags": [
+        "Session",
+        "Playstate",
+        "SyncPlay"
+      ],
+      "excludeOperationIds": [
+        "GetPasswordResetProviders",
+        "GetAuthProviders"
+      ]
+    },
+    {
+      "name": "LibraryService",
+      "includeTags": [
+        "Library",
+        "LibraryStructure",
+        "Items",
+        "UserLibrary",
+        "UserViews",
+        "Filter",
+        "Search",
+        "Suggestions",
+        "Collection",
+        "Playlists",
+        "InstantMix"
+      ]
+    },
+    {
+      "name": "CatalogService",
+      "includeTags": [
+        "Artists",
+        "Genres",
+        "MusicGenres",
+        "Persons",
+        "Studios",
+        "Years",
+        "Movies",
+        "TvShows",
+        "Trailers"
+      ]
+    },
+    {
+      "name": "MetadataService",
+      "includeTags": [
+        "ItemLookup",
+        "ItemRefresh",
+        "ItemUpdate",
+        "RemoteImage"
+      ]
+    },
+    {
+      "name": "ImagesService",
+      "includeTags": [
+        "Image"
+      ]
+    },
+    {
+      "name": "PlaybackService",
+      "includeTags": [
+        "Audio",
+        "Videos",
+        "MediaInfo",
+        "MediaSegments",
+        "Subtitle",
+        "Lyrics",
+        "Trickplay",
+        "HlsSegment",
+        "DynamicHls",
+        "UniversalAudio",
+        "VideoAttachments"
+      ]
+    },
+    {
+      "name": "LiveTVService",
+      "includeTags": [
+        "LiveTv",
+        "Channels"
+      ]
+    },
+    {
+      "name": "SystemService",
+      "includeTags": [
+        "System",
+        "Branding",
+        "Localization",
+        "TimeSync",
+        "Tmdb"
+      ]
+    },
+    {
+      "name": "AdministrationService",
+      "includeTags": [
+        "Configuration",
+        "Environment",
+        "Startup",
+        "ScheduledTasks",
+        "Plugins",
+        "Package",
+        "Backup",
+        "Dashboard",
+        "ActivityLog",
+        "ClientLog",
+        "ApiKey"
+      ]
+    }
+  ]
+}

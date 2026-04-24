@@ -1,0 +1,29 @@
+{
+  "MetadataSavers": [
+    {
+      "Name": "NfoSaver",
+      "DefaultEnabled": true
+    }
+  ],
+  "MetadataReaders": [
+    {
+      "Name": "NfoReader",
+      "DefaultEnabled": true
+    }
+  ],
+  "SubtitleFetchers": [],
+  "LyricFetchers": [],
+  "MediaSegmentProviders": [],
+  "TypeOptions": [
+    {
+      "Type": "movies",
+      "MetadataFetchers": [
+        {
+          "Name": "TheMovieDB",
+          "DefaultEnabled": true
+        }
+      ],
+      "ImageFetchers": []
+    }
+  ]
+}

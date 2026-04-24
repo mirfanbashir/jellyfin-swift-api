@@ -19,11 +19,20 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "JellyfinSwiftAPI"
+            name: "JellyfinSwiftAPI",
+            swiftSettings: [
+                .enableUpcomingFeature("StrictConcurrency"),
+            ]
         ),
         .testTarget(
             name: "JellyfinSwiftAPITests",
-            dependencies: ["JellyfinSwiftAPI"]
+            dependencies: ["JellyfinSwiftAPI"],
+            resources: [
+                .copy("Fixtures"),
+            ],
+            swiftSettings: [
+                .enableUpcomingFeature("StrictConcurrency"),
+            ]
         ),
     ]
 )
