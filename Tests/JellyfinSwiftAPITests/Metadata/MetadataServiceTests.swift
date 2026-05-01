@@ -12,7 +12,7 @@ final class MetadataServiceTests: XCTestCase {
             )
         }
         let service = makeMetadataService(
-            authorization: .header("MediaBrowser Token=test-token"),
+            authorization: .authenticated(token: "test-token"),
             transport: transport
         )
         let itemID = UUID(uuidString: "5F6D5A13-4B25-4F8D-B9FB-A3B4699EF301")!
@@ -37,7 +37,7 @@ final class MetadataServiceTests: XCTestCase {
             )
         }
         let service = makeMetadataService(
-            authorization: .header("MediaBrowser Token=test-token"),
+            authorization: .authenticated(token: "test-token"),
             transport: transport
         )
 
@@ -79,7 +79,7 @@ final class MetadataServiceTests: XCTestCase {
             )
         }
         let service = makeMetadataService(
-            authorization: .header("MediaBrowser Token=test-token"),
+            authorization: .authenticated(token: "test-token"),
             transport: transport
         )
         let itemID = UUID(uuidString: "5F6D5A13-4B25-4F8D-B9FB-A3B4699EF301")!
@@ -112,7 +112,7 @@ final class MetadataServiceTests: XCTestCase {
             )
         }
         let service = makeMetadataService(
-            authorization: .header("MediaBrowser Token=test-token"),
+            authorization: .authenticated(token: "test-token"),
             transport: transport
         )
         let itemID = UUID(uuidString: "5F6D5A13-4B25-4F8D-B9FB-A3B4699EF301")!
@@ -133,7 +133,7 @@ final class MetadataServiceTests: XCTestCase {
 }
 
 private func makeMetadataService(
-    authorization: JellyfinAuthorization = .none,
+    authorization: JellyfinAuthorization = .publicAccess,
     transport: any JellyfinTransporting
 ) -> MetadataServiceClient {
     MetadataServiceClient(executor: makeTestExecutor(authorization: authorization, transport: transport))

@@ -447,7 +447,7 @@ final class LibraryServiceTests: XCTestCase {
 }
 
 private func makeLibraryService(
-    authorization: JellyfinAuthorization = .header("MediaBrowser Token=test-token"),
+    authorization: JellyfinAuthorization = .authenticated(token: "test-token"),
     transport: any JellyfinTransporting
 ) -> LibraryServiceClient {
     LibraryServiceClient(executor: makeTestExecutor(authorization: authorization, transport: transport))

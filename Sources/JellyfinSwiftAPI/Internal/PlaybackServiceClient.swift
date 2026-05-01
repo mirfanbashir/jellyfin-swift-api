@@ -389,17 +389,17 @@ internal struct PlaybackServiceClient: PlaybackService {
     internal func fallbackFontList() async throws -> [FontFile] {
         try await executor.executeJSON(
             [FontFile].self,
-            for: JellyfinRequest(path: "/FallbackFont/Fonts", requiresAuthorization: false)
+            for: JellyfinRequest(path: "/FallbackFont/Fonts", requiresAuthentication: false)
         )
     }
 
     internal func fallbackFont(named name: String) async throws -> JellyfinRawData {
-        try await raw(path: "/FallbackFont/Fonts/\(name)", queryItems: [], requiresAuthorization: false)
+        try await raw(path: "/FallbackFont/Fonts/\(name)", queryItems: [], requiresAuthentication: false)
     }
 
-    private func raw(path: String, queryItems: [URLQueryItem], requiresAuthorization: Bool = true) async throws -> JellyfinRawData {
+    private func raw(path: String, queryItems: [URLQueryItem], requiresAuthentication: Bool = true) async throws -> JellyfinRawData {
         let response = try await executor.executeData(
-            for: JellyfinRequest(path: path, queryItems: queryItems, requiresAuthorization: requiresAuthorization)
+            for: JellyfinRequest(path: path, queryItems: queryItems, requiresAuthentication: requiresAuthentication)
         )
         return JellyfinRawData(data: response.data, mimeType: response.mimeType, statusCode: response.statusCode)
     }

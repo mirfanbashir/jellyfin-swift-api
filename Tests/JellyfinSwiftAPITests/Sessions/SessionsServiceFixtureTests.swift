@@ -9,6 +9,8 @@ final class SessionsServiceFixtureTests: XCTestCase {
         XCTAssertEqual(sessions.first?.userName, "irfan")
         XCTAssertEqual(sessions.first?.supportedCommands?.first, .displayMessage)
         XCTAssertEqual(sessions.first?.playState?.playMethod, .directPlay)
+        XCTAssertEqual(sessions.first?.userId?.uuidString.uppercased(), "D2C48876-BD8F-4D6A-8734-712267F7F9F6")
+        XCTAssertEqual(sessions.first?.nowPlayingQueue?.first?.id?.uuidString.uppercased(), "11111111-1111-1111-1111-111111111111")
     }
 
     func testSyncPlayGroupFixtureDecodes() throws {

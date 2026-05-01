@@ -25,5 +25,6 @@ final class CatalogServiceFixtureTests: XCTestCase {
 
         XCTAssertEqual(decoded.count, 1)
         XCTAssertEqual(decoded.first?.recommendationType, .similarToRecentlyPlayed)
+        XCTAssertEqual(decoded.first?.categoryId.uuidString.uppercased(), "5F6D5A13-4B25-4F8D-B9FB-A3B4699EF302")
     }
 }

@@ -13,7 +13,7 @@
   "WebSocketPortNumber": 8096,
   "CompletedInstallations": [
     {
-      "Guid": "5f6d5a13-4b25-4f8d-b9fb-a3b4699ef001",
+      "Guid": "5f6d5a134b254f8db9fba3b4699ef001",
       "Name": "TheTVDB",
       "Version": "1.2.3",
       "Changelog": "Updated metadata provider.",
@@ -25,7 +25,7 @@
         "Overview": "Provides metadata from TheTVDB.",
         "Owner": "Jellyfin",
         "Category": "Metadata",
-        "Guid": "5f6d5a13-4b25-4f8d-b9fb-a3b4699ef001",
+        "Guid": "5f6d5a134b254f8db9fba3b4699ef001",
         "Versions": [
           {
             "Version": "1.2.3",

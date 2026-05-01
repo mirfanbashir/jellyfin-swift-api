@@ -3,7 +3,7 @@ import XCTest
 @testable import JellyfinSwiftAPI
 
 final class SystemServiceTests: XCTestCase {
-    func testPublicSystemInfoUsesPublicEndpointWithoutAuthorization() async throws {
+    func testPublicSystemInfoUsesPublicEndpointWithAuthorizationHeader() async throws {
         let responseData = try FixtureLoader.data(service: "System", named: "public-info")
         let transport = TestTransport { request in
             JellyfinTransportResponse(
@@ -22,7 +22,10 @@ final class SystemServiceTests: XCTestCase {
         let lastRequest = await transport.lastRequest()
         let request = try XCTUnwrap(lastRequest)
         XCTAssertEqual(request.url?.absoluteString, "https://jellyfin.example.com/System/Info/Public")
-        XCTAssertNil(request.value(forHTTPHeaderField: "Authorization"))
+        XCTAssertEqual(
+            request.value(forHTTPHeaderField: "Authorization"),
+            #"MediaBrowser Client="JellyfinSwiftAPI Tests",Device="Unit Test Device",DeviceId="test-device-id",Version="1.0.0""#
+        )
         XCTAssertEqual(info.serverName, "Jellyfin Demo")
     }
 
@@ -39,7 +42,7 @@ final class SystemServiceTests: XCTestCase {
             )
         }
         let service = makeSystemService(
-            authorization: .header("MediaBrowser Token=test-token"),
+            authorization: .authenticated(token: "test-token"),
             transport: transport
         )
 
@@ -47,7 +50,10 @@ final class SystemServiceTests: XCTestCase {
 
         let lastRequest = await transport.lastRequest()
         let request = try XCTUnwrap(lastRequest)
-        XCTAssertEqual(request.value(forHTTPHeaderField: "Authorization"), "MediaBrowser Token=test-token")
+        XCTAssertEqual(
+            request.value(forHTTPHeaderField: "Authorization"),
+            #"MediaBrowser Client="JellyfinSwiftAPI Tests",Device="Unit Test Device",DeviceId="test-device-id",Version="1.0.0",Token="test-token""#
+        )
         XCTAssertEqual(info.webSocketPortNumber, 8096)
     }
 
@@ -64,7 +70,7 @@ final class SystemServiceTests: XCTestCase {
             )
         }
         let service = makeSystemService(
-            authorization: .header("MediaBrowser Token=test-token"),
+            authorization: .authenticated(token: "test-token"),
             transport: transport
         )
 
@@ -103,7 +109,7 @@ final class SystemServiceTests: XCTestCase {
             )
         }
         let service = makeSystemService(
-            authorization: .header("MediaBrowser Token=test-token"),
+            authorization: .authenticated(token: "test-token"),
             transport: transport
         )
 
@@ -117,7 +123,7 @@ final class SystemServiceTests: XCTestCase {
 }
 
 private func makeSystemService(
-    authorization: JellyfinAuthorization = .none,
+    authorization: JellyfinAuthorization = .publicAccess,
     transport: any JellyfinTransporting
 ) -> SystemServiceClient {
     let executor = makeTestExecutor(authorization: authorization, transport: transport)

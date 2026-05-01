@@ -18,7 +18,7 @@ internal struct AuthenticationServiceClient: AuthenticationService {
                 path: "/Users/AuthenticateByName",
                 method: .post,
                 body: .json(try JellyfinJSONCoder.encoder().encode(payload)),
-                requiresAuthorization: false
+                requiresAuthentication: false
             )
         )
     }
@@ -31,7 +31,7 @@ internal struct AuthenticationServiceClient: AuthenticationService {
                 path: "/Users/AuthenticateWithQuickConnect",
                 method: .post,
                 body: .json(try JellyfinJSONCoder.encoder().encode(payload)),
-                requiresAuthorization: false
+                requiresAuthentication: false
             )
         )
     }
@@ -44,7 +44,7 @@ internal struct AuthenticationServiceClient: AuthenticationService {
                 path: "/Users/ForgotPassword",
                 method: .post,
                 body: .json(try JellyfinJSONCoder.encoder().encode(payload)),
-                requiresAuthorization: false
+                requiresAuthentication: false
             )
         )
     }
@@ -57,7 +57,7 @@ internal struct AuthenticationServiceClient: AuthenticationService {
                 path: "/Users/ForgotPassword/Pin",
                 method: .post,
                 body: .json(try JellyfinJSONCoder.encoder().encode(payload)),
-                requiresAuthorization: false
+                requiresAuthentication: false
             )
         )
     }
@@ -65,7 +65,7 @@ internal struct AuthenticationServiceClient: AuthenticationService {
     internal func publicUsers() async throws -> [User] {
         try await executor.executeJSON(
             [User].self,
-            for: JellyfinRequest(path: "/Users/Public", requiresAuthorization: false)
+            for: JellyfinRequest(path: "/Users/Public", requiresAuthentication: false)
         )
     }
 
@@ -104,7 +104,7 @@ internal struct AuthenticationServiceClient: AuthenticationService {
             for: JellyfinRequest(
                 path: "/QuickConnect/Connect",
                 queryItems: [URLQueryItem(name: "secret", value: secret)],
-                requiresAuthorization: false
+                requiresAuthentication: false
             )
         )
     }
@@ -112,7 +112,7 @@ internal struct AuthenticationServiceClient: AuthenticationService {
     internal func quickConnectEnabled() async throws -> Bool {
         try await executor.executeJSON(
             Bool.self,
-            for: JellyfinRequest(path: "/QuickConnect/Enabled", requiresAuthorization: false)
+            for: JellyfinRequest(path: "/QuickConnect/Enabled", requiresAuthentication: false)
         )
     }
 
@@ -122,7 +122,7 @@ internal struct AuthenticationServiceClient: AuthenticationService {
             for: JellyfinRequest(
                 path: "/QuickConnect/Initiate",
                 method: .post,
-                requiresAuthorization: false
+                requiresAuthentication: false
             )
         )
     }

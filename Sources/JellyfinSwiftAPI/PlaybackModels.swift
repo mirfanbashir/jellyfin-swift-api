@@ -414,6 +414,15 @@ public struct MediaSegment: Codable, Sendable, Equatable {
         case startTicks = "StartTicks"
         case endTicks = "EndTicks"
     }
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decodeJellyfinUUIDIfPresent(forKey: .id)
+        itemId = try container.decodeJellyfinUUIDIfPresent(forKey: .itemId)
+        type = try container.decodeIfPresent(MediaSegmentType.self, forKey: .type)
+        startTicks = try container.decodeIfPresent(Int64.self, forKey: .startTicks)
+        endTicks = try container.decodeIfPresent(Int64.self, forKey: .endTicks)
+    }
 }
 
 /// Segment categories emitted by Jellyfin.

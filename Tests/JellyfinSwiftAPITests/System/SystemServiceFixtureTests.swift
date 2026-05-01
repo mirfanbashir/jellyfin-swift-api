@@ -18,6 +18,8 @@ final class SystemServiceFixtureTests: XCTestCase {
         XCTAssertEqual(decoded.serverName, "Jellyfin Demo")
         XCTAssertEqual(decoded.webSocketPortNumber, 8096)
         XCTAssertEqual(decoded.completedInstallations?.first?.name, "TheTVDB")
+        XCTAssertEqual(decoded.completedInstallations?.first?.guid.uuidString.uppercased(), "5F6D5A13-4B25-4F8D-B9FB-A3B4699EF001")
+        XCTAssertEqual(decoded.completedInstallations?.first?.packageInfo?.guid.uuidString.uppercased(), "5F6D5A13-4B25-4F8D-B9FB-A3B4699EF001")
     }
 
     func testServerLogsFixtureDecodes() throws {

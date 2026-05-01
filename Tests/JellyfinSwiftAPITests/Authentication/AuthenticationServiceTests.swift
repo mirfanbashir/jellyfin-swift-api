@@ -19,8 +19,12 @@ final class AuthenticationServiceTests: XCTestCase {
         let request = try XCTUnwrap(lastRequest)
         XCTAssertEqual(request.httpMethod, "POST")
         XCTAssertEqual(request.url?.absoluteString, "https://jellyfin.example.com/Users/AuthenticateByName")
-        XCTAssertNil(request.value(forHTTPHeaderField: "Authorization"))
-        XCTAssertEqual(result.accessToken, "demo-token")
+        XCTAssertEqual(
+            request.value(forHTTPHeaderField: "Authorization"),
+            #"MediaBrowser Client="JellyfinSwiftAPI Tests",Device="Unit Test Device",DeviceId="test-device-id",Version="1.0.0""#
+        )
+        XCTAssertEqual(result.accessToken, "36fc473875bf4822910e6a4e006770a1")
+        XCTAssertEqual(result.user?.name, "jellyfin-admin")
         let bodyString = try XCTUnwrap(String(data: try XCTUnwrap(request.httpBody), encoding: .utf8))
         XCTAssertTrue(bodyString.contains(#""Username":"demo""#))
         XCTAssertTrue(bodyString.contains(#""Pw":"secret""#))
@@ -51,7 +55,7 @@ final class AuthenticationServiceTests: XCTestCase {
             )
         }
         let service = makeAuthenticationService(
-            authorization: .header("MediaBrowser Token=test-token"),
+            authorization: .authenticated(token: "test-token"),
             transport: transport
         )
         let userID = UUID(uuidString: "5F6D5A13-4B25-4F8D-B9FB-A3B4699EF001")!
@@ -61,7 +65,10 @@ final class AuthenticationServiceTests: XCTestCase {
         let lastRequest = await transport.lastRequest()
         let request = try XCTUnwrap(lastRequest)
         XCTAssertEqual(request.httpMethod, "POST")
-        XCTAssertEqual(request.value(forHTTPHeaderField: "Authorization"), "MediaBrowser Token=test-token")
+        XCTAssertEqual(
+            request.value(forHTTPHeaderField: "Authorization"),
+            #"MediaBrowser Client="JellyfinSwiftAPI Tests",Device="Unit Test Device",DeviceId="test-device-id",Version="1.0.0",Token="test-token""#
+        )
         XCTAssertEqual(
             request.url?.absoluteString,
             "https://jellyfin.example.com/QuickConnect/Authorize?code=ABCD&userId=5F6D5A13-4B25-4F8D-B9FB-A3B4699EF001"
@@ -70,7 +77,7 @@ final class AuthenticationServiceTests: XCTestCase {
 }
 
 private func makeAuthenticationService(
-    authorization: JellyfinAuthorization = .none,
+    authorization: JellyfinAuthorization = .publicAccess,
     transport: any JellyfinTransporting
 ) -> AuthenticationServiceClient {
     AuthenticationServiceClient(executor: makeTestExecutor(authorization: authorization, transport: transport))

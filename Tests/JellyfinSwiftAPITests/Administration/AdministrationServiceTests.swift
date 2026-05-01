@@ -175,7 +175,7 @@ final class AdministrationServiceTests: XCTestCase {
 }
 
 private func makeAdministrationService(
-    authorization: JellyfinAuthorization = .header("MediaBrowser Token=test-token"),
+    authorization: JellyfinAuthorization = .authenticated(token: "test-token"),
     transport: any JellyfinTransporting
 ) -> AdministrationServiceClient {
     AdministrationServiceClient(executor: makeTestExecutor(authorization: authorization, transport: transport))

@@ -144,6 +144,13 @@ public struct LibraryStorage: Codable, Sendable, Equatable {
         case name = "Name"
         case folders = "Folders"
     }
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decodeJellyfinUUID(forKey: .id)
+        name = try container.decode(String.self, forKey: .name)
+        folders = try container.decode([FolderStorage].self, forKey: .folders)
+    }
 }
 
 /// A server log file entry.
@@ -292,6 +299,17 @@ public struct InstallationInfo: Codable, Sendable, Equatable {
         case checksum = "Checksum"
         case packageInfo = "PackageInfo"
     }
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        guid = try container.decodeJellyfinUUID(forKey: .guid)
+        name = try container.decodeIfPresent(String.self, forKey: .name)
+        version = try container.decodeIfPresent(String.self, forKey: .version)
+        changelog = try container.decodeIfPresent(String.self, forKey: .changelog)
+        sourceUrl = try container.decodeIfPresent(String.self, forKey: .sourceUrl)
+        checksum = try container.decodeIfPresent(String.self, forKey: .checksum)
+        packageInfo = try container.decodeIfPresent(PackageInfo.self, forKey: .packageInfo)
+    }
 }
 
 /// Package metadata associated with an installation.
@@ -314,6 +332,18 @@ public struct PackageInfo: Codable, Sendable, Equatable {
         case guid = "Guid"
         case versions = "Versions"
         case imageUrl = "ImageUrl"
+    }
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decode(String.self, forKey: .name)
+        description = try container.decode(String.self, forKey: .description)
+        overview = try container.decode(String.self, forKey: .overview)
+        owner = try container.decode(String.self, forKey: .owner)
+        category = try container.decode(String.self, forKey: .category)
+        guid = try container.decodeJellyfinUUID(forKey: .guid)
+        versions = try container.decode([PackageVersionInfo].self, forKey: .versions)
+        imageUrl = try container.decodeIfPresent(String.self, forKey: .imageUrl)
     }
 }
 

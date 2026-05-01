@@ -22,6 +22,8 @@ final class PlaybackServiceFixtureTests: XCTestCase {
         let decoded = try JellyfinJSONCoder.decoder().decode([MediaSegment].self, from: data)
 
         XCTAssertEqual(decoded.first?.type, .intro)
+        XCTAssertEqual(decoded.first?.id?.uuidString.uppercased(), "4A9A391D-9731-4B82-9EAF-D14BF2F4DC74")
+        XCTAssertEqual(decoded.first?.itemId?.uuidString.uppercased(), "D2C48876-BD8F-4D6A-8734-712267F7F9F6")
     }
 
     func testLyricsFixtureDecodes() throws {

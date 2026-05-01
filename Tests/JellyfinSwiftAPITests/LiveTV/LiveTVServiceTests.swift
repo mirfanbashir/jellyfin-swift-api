@@ -186,7 +186,7 @@ final class LiveTVServiceTests: XCTestCase {
 }
 
 private func makeLiveTVService(
-    authorization: JellyfinAuthorization = .header("MediaBrowser Token=test-token"),
+    authorization: JellyfinAuthorization = .authenticated(token: "test-token"),
     transport: any JellyfinTransporting
 ) -> LiveTVServiceClient {
     LiveTVServiceClient(executor: makeTestExecutor(authorization: authorization, transport: transport))

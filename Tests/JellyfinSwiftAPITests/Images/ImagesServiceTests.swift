@@ -160,7 +160,7 @@ final class ImagesServiceTests: XCTestCase {
 }
 
 private func makeImagesService(
-    authorization: JellyfinAuthorization = .header("MediaBrowser Token=test-token"),
+    authorization: JellyfinAuthorization = .authenticated(token: "test-token"),
     transport: any JellyfinTransporting
 ) -> ImagesServiceClient {
     ImagesServiceClient(executor: makeTestExecutor(authorization: authorization, transport: transport))

@@ -46,17 +46,20 @@ public struct JellyfinSwiftAPI: Sendable {
     ///
     /// - Parameters:
     ///   - serverURL: The root URL of the Jellyfin server.
-    ///   - authorization: The authorization strategy used for authenticated requests.
+    ///   - clientInfo: The Jellyfin client identity sent with every request.
+    ///   - authorization: The authentication strategy used for requests that need a user token.
     ///   - session: The session used for future HTTP requests. On Linux this uses
     ///     `FoundationNetworking` when available.
     public init(
         serverURL: URL,
-        authorization: JellyfinAuthorization = .none,
+        clientInfo: JellyfinClientInfo,
+        authorization: JellyfinAuthorization = .publicAccess,
         session: URLSession = .shared
     ) {
         let transport = JellyfinTransport(session: session)
         let executor = JellyfinRequestExecutor(
             serverURL: serverURL,
+            clientInfo: clientInfo,
             authorization: authorization,
             transport: transport
         )

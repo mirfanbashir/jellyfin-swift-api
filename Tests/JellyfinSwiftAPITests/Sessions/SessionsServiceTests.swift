@@ -225,7 +225,7 @@ final class SessionsServiceTests: XCTestCase {
 }
 
 private func makeSessionsService(
-    authorization: JellyfinAuthorization = .header("MediaBrowser Token=test-token"),
+    authorization: JellyfinAuthorization = .authenticated(token: "test-token"),
     transport: any JellyfinTransporting
 ) -> SessionsServiceClient {
     SessionsServiceClient(executor: makeTestExecutor(authorization: authorization, transport: transport))

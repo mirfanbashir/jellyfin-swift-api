@@ -9,21 +9,24 @@ internal struct JellyfinRawResponse: Sendable, Equatable {
 internal enum JellyfinRequestExecutionError: Error, Equatable {
     case invalidURL(String)
     case invalidResponse
-    case missingAuthorization
+    case missingAuthenticationToken
     case unexpectedStatusCode(Int, Data)
 }
 
 internal struct JellyfinRequestExecutor: Sendable {
     private let serverURL: URL
+    private let clientInfo: JellyfinClientInfo
     private let authorization: JellyfinAuthorization
     private let transport: any JellyfinTransporting
 
     internal init(
         serverURL: URL,
+        clientInfo: JellyfinClientInfo,
         authorization: JellyfinAuthorization,
         transport: any JellyfinTransporting
     ) {
         self.serverURL = serverURL
+        self.clientInfo = clientInfo
         self.authorization = authorization
         self.transport = transport
     }
@@ -61,7 +64,17 @@ internal struct JellyfinRequestExecutor: Sendable {
 
     private func perform(_ request: JellyfinRequest) async throws -> JellyfinTransportResponse {
         let urlRequest = try buildURLRequest(for: request)
-        let transportResponse = try await transport.data(for: urlRequest)
+        JellyfinDebugLogger.logRequest(urlRequest)
+
+        let transportResponse: JellyfinTransportResponse
+        do {
+            transportResponse = try await transport.data(for: urlRequest)
+        } catch {
+            JellyfinDebugLogger.logError(error, for: urlRequest)
+            throw error
+        }
+
+        JellyfinDebugLogger.logResponse(transportResponse, for: urlRequest)
 
         guard (200 ..< 300).contains(transportResponse.response.statusCode) else {
             throw JellyfinRequestExecutionError.unexpectedStatusCode(
@@ -78,15 +91,7 @@ internal struct JellyfinRequestExecutor: Sendable {
         var urlRequest = URLRequest(url: url)
 
         urlRequest.httpMethod = request.method.rawValue
-
-        if request.requiresAuthorization {
-            switch authorization {
-            case .none:
-                throw JellyfinRequestExecutionError.missingAuthorization
-            case let .header(value):
-                urlRequest.setValue(value, forHTTPHeaderField: "Authorization")
-            }
-        }
+        urlRequest.setValue(try authorizationHeaderValue(for: request), forHTTPHeaderField: "Authorization")
 
         for (field, value) in request.headers {
             urlRequest.setValue(value, forHTTPHeaderField: field)
@@ -98,6 +103,21 @@ internal struct JellyfinRequestExecutor: Sendable {
         }
 
         return urlRequest
+    }
+
+    private func authorizationHeaderValue(for request: JellyfinRequest) throws -> String {
+        let token: String?
+
+        if request.requiresAuthentication {
+            guard let authenticationToken = authorization.token else {
+                throw JellyfinRequestExecutionError.missingAuthenticationToken
+            }
+            token = authenticationToken
+        } else {
+            token = nil
+        }
+
+        return clientInfo.authorizationHeaderValue(token: token)
     }
 
     private func makeURL(path: String, queryItems: [URLQueryItem]) throws -> URL {

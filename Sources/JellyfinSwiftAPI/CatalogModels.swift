@@ -431,6 +431,31 @@ public struct BaseItem: Codable, Sendable, Equatable {
         case type = "Type"
         case mediaType = "MediaType"
     }
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decodeIfPresent(String.self, forKey: .name)
+        originalTitle = try container.decodeIfPresent(String.self, forKey: .originalTitle)
+        serverId = try container.decodeIfPresent(String.self, forKey: .serverId)
+        id = try container.decodeJellyfinUUID(forKey: .id)
+        etag = try container.decodeIfPresent(String.self, forKey: .etag)
+        sourceType = try container.decodeIfPresent(String.self, forKey: .sourceType)
+        playlistItemId = try container.decodeIfPresent(String.self, forKey: .playlistItemId)
+        dateCreated = try container.decodeIfPresent(Date.self, forKey: .dateCreated)
+        dateLastMediaAdded = try container.decodeIfPresent(Date.self, forKey: .dateLastMediaAdded)
+        sortName = try container.decodeIfPresent(String.self, forKey: .sortName)
+        premiereDate = try container.decodeIfPresent(Date.self, forKey: .premiereDate)
+        officialRating = try container.decodeIfPresent(String.self, forKey: .officialRating)
+        overview = try container.decodeIfPresent(String.self, forKey: .overview)
+        genres = try container.decodeIfPresent([String].self, forKey: .genres)
+        communityRating = try container.decodeIfPresent(Float.self, forKey: .communityRating)
+        runTimeTicks = try container.decodeIfPresent(Int64.self, forKey: .runTimeTicks)
+        productionYear = try container.decodeIfPresent(Int.self, forKey: .productionYear)
+        indexNumber = try container.decodeIfPresent(Int.self, forKey: .indexNumber)
+        parentIndexNumber = try container.decodeIfPresent(Int.self, forKey: .parentIndexNumber)
+        type = try container.decodeIfPresent(BaseItemKind.self, forKey: .type)
+        mediaType = try container.decodeIfPresent(MediaType.self, forKey: .mediaType)
+    }
 }
 
 /// Jellyfin item kinds surfaced by browse endpoints.
@@ -486,6 +511,14 @@ public struct Recommendation: Codable, Sendable, Equatable {
         case recommendationType = "RecommendationType"
         case baselineItemName = "BaselineItemName"
         case categoryId = "CategoryId"
+    }
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        items = try container.decodeIfPresent([BaseItem].self, forKey: .items)
+        recommendationType = try container.decode(RecommendationType.self, forKey: .recommendationType)
+        baselineItemName = try container.decodeIfPresent(String.self, forKey: .baselineItemName)
+        categoryId = try container.decodeJellyfinUUID(forKey: .categoryId)
     }
 }
 

@@ -1,14 +1,14 @@
 [
   {
-    "Id": "4A9A391D-9731-4B82-9EAF-D14BF2F4DC74",
-    "ItemId": "D2C48876-BD8F-4D6A-8734-712267F7F9F6",
+    "Id": "4a9a391d97314b829eafd14bf2f4dc74",
+    "ItemId": "d2c48876bd8f4d6a8734712267f7f9f6",
     "Type": "Intro",
     "StartTicks": 0,
     "EndTicks": 12000000
   },
   {
-    "Id": "A385AA5E-9C0A-475C-8197-347E3C3D7710",
-    "ItemId": "D2C48876-BD8F-4D6A-8734-712267F7F9F6",
+    "Id": "a385aa5e9c0a475c8197347e3c3d7710",
+    "ItemId": "d2c48876bd8f4d6a8734712267f7f9f6",
     "Type": "Outro",
     "StartTicks": 420000000,
     "EndTicks": 432000000

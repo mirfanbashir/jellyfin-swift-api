@@ -457,7 +457,7 @@ final class PlaybackServiceTests: XCTestCase {
 }
 
 private func makePlaybackService(
-    authorization: JellyfinAuthorization = .header("MediaBrowser Token=test-token"),
+    authorization: JellyfinAuthorization = .authenticated(token: "test-token"),
     transport: any JellyfinTransporting
 ) -> PlaybackServiceClient {
     PlaybackServiceClient(executor: makeTestExecutor(authorization: authorization, transport: transport))

@@ -12,7 +12,7 @@ final class CatalogServiceTests: XCTestCase {
             )
         }
         let service = makeCatalogService(
-            authorization: .header("MediaBrowser Token=test-token"),
+            authorization: .authenticated(token: "test-token"),
             transport: transport
         )
 
@@ -44,7 +44,7 @@ final class CatalogServiceTests: XCTestCase {
             )
         }
         let service = makeCatalogService(
-            authorization: .header("MediaBrowser Token=test-token"),
+            authorization: .authenticated(token: "test-token"),
             transport: transport
         )
 
@@ -71,7 +71,7 @@ final class CatalogServiceTests: XCTestCase {
             )
         }
         let service = makeCatalogService(
-            authorization: .header("MediaBrowser Token=test-token"),
+            authorization: .authenticated(token: "test-token"),
             transport: transport
         )
 
@@ -101,7 +101,7 @@ final class CatalogServiceTests: XCTestCase {
             )
         }
         let service = makeCatalogService(
-            authorization: .header("MediaBrowser Token=test-token"),
+            authorization: .authenticated(token: "test-token"),
             transport: transport
         )
         let seriesID = UUID(uuidString: "5F6D5A13-4B25-4F8D-B9FB-A3B4699EF111")!
@@ -122,7 +122,7 @@ final class CatalogServiceTests: XCTestCase {
 }
 
 private func makeCatalogService(
-    authorization: JellyfinAuthorization = .none,
+    authorization: JellyfinAuthorization = .publicAccess,
     transport: any JellyfinTransporting
 ) -> CatalogServiceClient {
     CatalogServiceClient(executor: makeTestExecutor(authorization: authorization, transport: transport))

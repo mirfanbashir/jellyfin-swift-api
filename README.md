@@ -51,7 +51,17 @@ Or add it via **Xcode → File → Add Package Dependencies…** and paste the r
 ```swift
 import JellyfinSwiftAPI
 
-let client = JellyfinSwiftAPI(serverURL: URL(string: "https://jellyfin.example.com")!)
+let clientInfo = JellyfinClientInfo(
+    appName: "MyApp",
+    deviceName: "Jane's iPhone",
+    deviceID: "A1B2C3D4-E5F6-7890-1234-56789ABCDEF0",
+    version: "1.0.0"
+)
+
+let client = JellyfinSwiftAPI(
+    serverURL: URL(string: "https://jellyfin.example.com")!,
+    clientInfo: clientInfo
+)
 let authenticationService: any AuthenticationService = client.authentication
 let catalogService: any CatalogService = client.catalog
 let sessionsService: any SessionsService = client.sessions
@@ -66,7 +76,8 @@ let usersService: any UsersService = client.users
 
 let authenticatedClient = JellyfinSwiftAPI(
     serverURL: URL(string: "https://jellyfin.example.com")!,
-    authorization: .header("<Authorization header value>")
+    clientInfo: clientInfo,
+    authorization: .authenticated(token: "<AuthenticatedUserAccessToken>")
 )
 
 let publicInfo = try await client.system.publicSystemInfo()
@@ -94,7 +105,7 @@ let activeSessions = try await authenticatedClient.sessions.sessions(SessionQuer
 let currentUser = try await authenticatedClient.users.currentUser()
 ```
 
-`JellyfinSwiftAPI` is `Sendable`, exposes protocol-typed services, and keeps concrete implementations internal to the package. The transport layer is prepared for Apple platforms and Linux.
+`JellyfinSwiftAPI` is `Sendable`, exposes protocol-typed services, and keeps concrete implementations internal to the package. The transport layer is prepared for Apple platforms and Linux, and automatically sends Jellyfin's required `Authorization: MediaBrowser ...` header on both public and authenticated requests.
 
 ## Included services
 

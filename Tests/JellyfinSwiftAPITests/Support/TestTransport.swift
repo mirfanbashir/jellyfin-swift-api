@@ -24,15 +24,24 @@ actor TestTransport: JellyfinTransporting {
 }
 
 func makeTestExecutor(
-    authorization: JellyfinAuthorization = .none,
+    clientInfo: JellyfinClientInfo = testClientInfo,
+    authorization: JellyfinAuthorization = .publicAccess,
     transport: any JellyfinTransporting
 ) -> JellyfinRequestExecutor {
     JellyfinRequestExecutor(
         serverURL: URL(string: "https://jellyfin.example.com") ?? URL(fileURLWithPath: "/"),
+        clientInfo: clientInfo,
         authorization: authorization,
         transport: transport
     )
 }
+
+let testClientInfo = JellyfinClientInfo(
+    appName: "JellyfinSwiftAPI Tests",
+    deviceName: "Unit Test Device",
+    deviceID: "test-device-id",
+    version: "1.0.0"
+)
 
 func makeHTTPResponse(
     url: URL,

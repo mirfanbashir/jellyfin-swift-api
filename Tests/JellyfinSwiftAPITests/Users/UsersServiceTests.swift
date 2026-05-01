@@ -12,7 +12,7 @@ final class UsersServiceTests: XCTestCase {
             )
         }
         let service = makeUsersService(
-            authorization: .header("MediaBrowser Token=test-token"),
+            authorization: .authenticated(token: "test-token"),
             transport: transport
         )
 
@@ -20,7 +20,10 @@ final class UsersServiceTests: XCTestCase {
 
         let lastRequest = await transport.lastRequest()
         let request = try XCTUnwrap(lastRequest)
-        XCTAssertEqual(request.value(forHTTPHeaderField: "Authorization"), "MediaBrowser Token=test-token")
+        XCTAssertEqual(
+            request.value(forHTTPHeaderField: "Authorization"),
+            #"MediaBrowser Client="JellyfinSwiftAPI Tests",Device="Unit Test Device",DeviceId="test-device-id",Version="1.0.0",Token="test-token""#
+        )
         XCTAssertEqual(request.url?.absoluteString, "https://jellyfin.example.com/Users/Me")
     }
 
@@ -33,7 +36,7 @@ final class UsersServiceTests: XCTestCase {
             )
         }
         let service = makeUsersService(
-            authorization: .header("MediaBrowser Token=test-token"),
+            authorization: .authenticated(token: "test-token"),
             transport: transport
         )
 
@@ -56,7 +59,7 @@ final class UsersServiceTests: XCTestCase {
             )
         }
         let service = makeUsersService(
-            authorization: .header("MediaBrowser Token=test-token"),
+            authorization: .authenticated(token: "test-token"),
             transport: transport
         )
         let userID = UUID(uuidString: "5F6D5A13-4B25-4F8D-B9FB-A3B4699EF001")!
@@ -102,7 +105,7 @@ final class UsersServiceTests: XCTestCase {
             )
         }
         let service = makeUsersService(
-            authorization: .header("MediaBrowser Token=test-token"),
+            authorization: .authenticated(token: "test-token"),
             transport: transport
         )
         let userID = UUID(uuidString: "5F6D5A13-4B25-4F8D-B9FB-A3B4699EF001")!
@@ -124,7 +127,7 @@ final class UsersServiceTests: XCTestCase {
 }
 
 private func makeUsersService(
-    authorization: JellyfinAuthorization = .none,
+    authorization: JellyfinAuthorization = .publicAccess,
     transport: any JellyfinTransporting
 ) -> UsersServiceClient {
     UsersServiceClient(executor: makeTestExecutor(authorization: authorization, transport: transport))

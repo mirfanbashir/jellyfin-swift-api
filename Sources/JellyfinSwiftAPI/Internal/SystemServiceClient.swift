@@ -24,7 +24,7 @@ internal struct SystemServiceClient: SystemService {
     internal func publicSystemInfo() async throws -> PublicSystemInfo {
         try await executor.executeJSON(
             PublicSystemInfo.self,
-            for: JellyfinRequest(path: "/System/Info/Public", requiresAuthorization: false)
+            for: JellyfinRequest(path: "/System/Info/Public", requiresAuthentication: false)
         )
     }
 
@@ -53,7 +53,7 @@ internal struct SystemServiceClient: SystemService {
 
     internal func ping() async throws -> String {
         try await executor.executeString(
-            for: JellyfinRequest(path: "/System/Ping", requiresAuthorization: false)
+            for: JellyfinRequest(path: "/System/Ping", requiresAuthentication: false)
         )
     }
 
@@ -62,7 +62,7 @@ internal struct SystemServiceClient: SystemService {
             for: JellyfinRequest(
                 path: "/System/Ping",
                 method: .post,
-                requiresAuthorization: false
+                requiresAuthentication: false
             )
         )
     }
@@ -82,13 +82,13 @@ internal struct SystemServiceClient: SystemService {
     internal func brandingOptions() async throws -> BrandingOptions {
         try await executor.executeJSON(
             BrandingOptions.self,
-            for: JellyfinRequest(path: "/Branding/Configuration", requiresAuthorization: false)
+            for: JellyfinRequest(path: "/Branding/Configuration", requiresAuthentication: false)
         )
     }
 
     internal func brandingCSS() async throws -> String {
         try await executor.executeString(
-            for: JellyfinRequest(path: "/Branding/Css", requiresAuthorization: false)
+            for: JellyfinRequest(path: "/Branding/Css", requiresAuthentication: false)
         )
     }
 
@@ -123,7 +123,7 @@ internal struct SystemServiceClient: SystemService {
     internal func utcTime() async throws -> UtcTimeResponse {
         try await executor.executeJSON(
             UtcTimeResponse.self,
-            for: JellyfinRequest(path: "/GetUtcTime", requiresAuthorization: false)
+            for: JellyfinRequest(path: "/GetUtcTime", requiresAuthentication: false)
         )
     }
 

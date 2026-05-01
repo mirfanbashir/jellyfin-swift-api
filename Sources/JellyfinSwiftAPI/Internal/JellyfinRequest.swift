@@ -36,7 +36,7 @@ internal struct JellyfinRequest: Sendable {
     internal var queryItems: [URLQueryItem]
     internal var headers: [String: String]
     internal var body: JellyfinRequestBody?
-    internal var requiresAuthorization: Bool
+    internal var requiresAuthentication: Bool
 
     internal init(
         path: String,
@@ -44,13 +44,13 @@ internal struct JellyfinRequest: Sendable {
         queryItems: [URLQueryItem] = [],
         headers: [String: String] = [:],
         body: JellyfinRequestBody? = nil,
-        requiresAuthorization: Bool = true
+        requiresAuthentication: Bool = true
     ) {
         self.path = path
         self.method = method
         self.queryItems = queryItems
         self.headers = headers
         self.body = body
-        self.requiresAuthorization = requiresAuthorization
+        self.requiresAuthentication = requiresAuthentication
     }
 }

@@ -80,6 +80,39 @@ public struct SessionInfo: Codable, Sendable, Equatable {
         case userPrimaryImageTag = "UserPrimaryImageTag"
         case supportedCommands = "SupportedCommands"
     }
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        playState = try container.decodeIfPresent(SessionPlayerState.self, forKey: .playState)
+        additionalUsers = try container.decodeIfPresent([SessionUserInfo].self, forKey: .additionalUsers)
+        capabilities = try container.decodeIfPresent(ClientCapabilities.self, forKey: .capabilities)
+        remoteEndPoint = try container.decodeIfPresent(String.self, forKey: .remoteEndPoint)
+        playableMediaTypes = try container.decodeIfPresent([MediaType].self, forKey: .playableMediaTypes)
+        id = try container.decodeIfPresent(String.self, forKey: .id)
+        userId = try container.decodeJellyfinUUIDIfPresent(forKey: .userId)
+        userName = try container.decodeIfPresent(String.self, forKey: .userName)
+        client = try container.decodeIfPresent(String.self, forKey: .client)
+        lastActivityDate = try container.decodeIfPresent(Date.self, forKey: .lastActivityDate)
+        lastPlaybackCheckIn = try container.decodeIfPresent(Date.self, forKey: .lastPlaybackCheckIn)
+        lastPausedDate = try container.decodeIfPresent(Date.self, forKey: .lastPausedDate)
+        deviceName = try container.decodeIfPresent(String.self, forKey: .deviceName)
+        deviceType = try container.decodeIfPresent(String.self, forKey: .deviceType)
+        nowPlayingItem = try container.decodeIfPresent(BaseItem.self, forKey: .nowPlayingItem)
+        nowViewingItem = try container.decodeIfPresent(BaseItem.self, forKey: .nowViewingItem)
+        deviceId = try container.decodeIfPresent(String.self, forKey: .deviceId)
+        applicationVersion = try container.decodeIfPresent(String.self, forKey: .applicationVersion)
+        transcodingInfo = try container.decodeIfPresent(SessionTranscodingInfo.self, forKey: .transcodingInfo)
+        isActive = try container.decodeIfPresent(Bool.self, forKey: .isActive)
+        supportsMediaControl = try container.decodeIfPresent(Bool.self, forKey: .supportsMediaControl)
+        supportsRemoteControl = try container.decodeIfPresent(Bool.self, forKey: .supportsRemoteControl)
+        nowPlayingQueue = try container.decodeIfPresent([SessionQueueItem].self, forKey: .nowPlayingQueue)
+        nowPlayingQueueFullItems = try container.decodeIfPresent([BaseItem].self, forKey: .nowPlayingQueueFullItems)
+        hasCustomDeviceName = try container.decodeIfPresent(Bool.self, forKey: .hasCustomDeviceName)
+        playlistItemId = try container.decodeIfPresent(String.self, forKey: .playlistItemId)
+        serverId = try container.decodeIfPresent(String.self, forKey: .serverId)
+        userPrimaryImageTag = try container.decodeIfPresent(String.self, forKey: .userPrimaryImageTag)
+        supportedCommands = try container.decodeIfPresent([SessionGeneralCommand].self, forKey: .supportedCommands)
+    }
 }
 
 /// Additional user metadata attached to a session.
@@ -91,6 +124,12 @@ public struct SessionUserInfo: Codable, Sendable, Equatable {
         case userId = "UserId"
         case userName = "UserName"
     }
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        userId = try container.decodeJellyfinUUIDIfPresent(forKey: .userId)
+        userName = try container.decodeIfPresent(String.self, forKey: .userName)
+    }
 }
 
 /// Queue item metadata returned by session and SyncPlay payloads.
@@ -101,6 +140,17 @@ public struct SessionQueueItem: Codable, Sendable, Equatable {
     enum CodingKeys: String, CodingKey {
         case id = "Id"
         case playlistItemId = "PlaylistItemId"
+    }
+
+    public init(id: UUID?, playlistItemId: String?) {
+        self.id = id
+        self.playlistItemId = playlistItemId
+    }
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decodeJellyfinUUIDIfPresent(forKey: .id)
+        playlistItemId = try container.decodeIfPresent(String.self, forKey: .playlistItemId)
     }
 }
 

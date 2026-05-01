@@ -33,6 +33,24 @@ public struct User: Codable, Sendable, Equatable {
         case policy = "Policy"
         case primaryImageAspectRatio = "PrimaryImageAspectRatio"
     }
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decodeIfPresent(String.self, forKey: .name)
+        serverId = try container.decodeIfPresent(String.self, forKey: .serverId)
+        serverName = try container.decodeIfPresent(String.self, forKey: .serverName)
+        id = try container.decodeJellyfinUUID(forKey: .id)
+        primaryImageTag = try container.decodeIfPresent(String.self, forKey: .primaryImageTag)
+        hasPassword = try container.decode(Bool.self, forKey: .hasPassword)
+        hasConfiguredPassword = try container.decode(Bool.self, forKey: .hasConfiguredPassword)
+        hasConfiguredEasyPassword = try container.decodeIfPresent(Bool.self, forKey: .hasConfiguredEasyPassword)
+        enableAutoLogin = try container.decodeIfPresent(Bool.self, forKey: .enableAutoLogin)
+        lastLoginDate = try container.decodeIfPresent(Date.self, forKey: .lastLoginDate)
+        lastActivityDate = try container.decodeIfPresent(Date.self, forKey: .lastActivityDate)
+        configuration = try container.decodeIfPresent(UserConfiguration.self, forKey: .configuration)
+        policy = try container.decodeIfPresent(UserPolicy.self, forKey: .policy)
+        primaryImageAspectRatio = try container.decodeIfPresent(Double.self, forKey: .primaryImageAspectRatio)
+    }
 }
 
 /// User configuration settings.
@@ -71,6 +89,62 @@ public struct UserConfiguration: Codable, Sendable, Equatable {
         case rememberSubtitleSelections = "RememberSubtitleSelections"
         case enableNextEpisodeAutoPlay = "EnableNextEpisodeAutoPlay"
         case castReceiverId = "CastReceiverId"
+    }
+
+    public init(
+        audioLanguagePreference: String? = nil,
+        playDefaultAudioTrack: Bool,
+        subtitleLanguagePreference: String? = nil,
+        displayMissingEpisodes: Bool,
+        groupedFolders: [UUID] = [],
+        subtitleMode: SubtitlePlaybackMode,
+        displayCollectionsView: Bool,
+        enableLocalPassword: Bool,
+        orderedViews: [UUID] = [],
+        latestItemsExcludes: [UUID] = [],
+        myMediaExcludes: [UUID] = [],
+        hidePlayedInLatest: Bool,
+        rememberAudioSelections: Bool,
+        rememberSubtitleSelections: Bool,
+        enableNextEpisodeAutoPlay: Bool,
+        castReceiverId: String? = nil
+    ) {
+        self.audioLanguagePreference = audioLanguagePreference
+        self.playDefaultAudioTrack = playDefaultAudioTrack
+        self.subtitleLanguagePreference = subtitleLanguagePreference
+        self.displayMissingEpisodes = displayMissingEpisodes
+        self.groupedFolders = groupedFolders
+        self.subtitleMode = subtitleMode
+        self.displayCollectionsView = displayCollectionsView
+        self.enableLocalPassword = enableLocalPassword
+        self.orderedViews = orderedViews
+        self.latestItemsExcludes = latestItemsExcludes
+        self.myMediaExcludes = myMediaExcludes
+        self.hidePlayedInLatest = hidePlayedInLatest
+        self.rememberAudioSelections = rememberAudioSelections
+        self.rememberSubtitleSelections = rememberSubtitleSelections
+        self.enableNextEpisodeAutoPlay = enableNextEpisodeAutoPlay
+        self.castReceiverId = castReceiverId
+    }
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        audioLanguagePreference = try container.decodeIfPresent(String.self, forKey: .audioLanguagePreference)
+        playDefaultAudioTrack = try container.decode(Bool.self, forKey: .playDefaultAudioTrack)
+        subtitleLanguagePreference = try container.decodeIfPresent(String.self, forKey: .subtitleLanguagePreference)
+        displayMissingEpisodes = try container.decode(Bool.self, forKey: .displayMissingEpisodes)
+        groupedFolders = try container.decodeJellyfinUUIDArray(forKey: .groupedFolders)
+        subtitleMode = try container.decode(SubtitlePlaybackMode.self, forKey: .subtitleMode)
+        displayCollectionsView = try container.decode(Bool.self, forKey: .displayCollectionsView)
+        enableLocalPassword = try container.decode(Bool.self, forKey: .enableLocalPassword)
+        orderedViews = try container.decodeJellyfinUUIDArray(forKey: .orderedViews)
+        latestItemsExcludes = try container.decodeJellyfinUUIDArray(forKey: .latestItemsExcludes)
+        myMediaExcludes = try container.decodeJellyfinUUIDArray(forKey: .myMediaExcludes)
+        hidePlayedInLatest = try container.decode(Bool.self, forKey: .hidePlayedInLatest)
+        rememberAudioSelections = try container.decode(Bool.self, forKey: .rememberAudioSelections)
+        rememberSubtitleSelections = try container.decode(Bool.self, forKey: .rememberSubtitleSelections)
+        enableNextEpisodeAutoPlay = try container.decode(Bool.self, forKey: .enableNextEpisodeAutoPlay)
+        castReceiverId = try container.decodeIfPresent(String.self, forKey: .castReceiverId)
     }
 }
 
@@ -176,6 +250,146 @@ public struct UserPolicy: Codable, Sendable, Equatable {
         case passwordResetProviderId = "PasswordResetProviderId"
         case syncPlayAccess = "SyncPlayAccess"
     }
+
+    public init(
+        isAdministrator: Bool,
+        isHidden: Bool,
+        enableCollectionManagement: Bool,
+        enableSubtitleManagement: Bool,
+        enableLyricManagement: Bool,
+        isDisabled: Bool,
+        maxParentalRating: Int? = nil,
+        maxParentalSubRating: Int? = nil,
+        blockedTags: [String]? = nil,
+        allowedTags: [String]? = nil,
+        enableUserPreferenceAccess: Bool,
+        accessSchedules: [AccessSchedule]? = nil,
+        blockUnratedItems: [UnratedItem]? = nil,
+        enableRemoteControlOfOtherUsers: Bool,
+        enableSharedDeviceControl: Bool,
+        enableRemoteAccess: Bool,
+        enableLiveTvManagement: Bool,
+        enableLiveTvAccess: Bool,
+        enableMediaPlayback: Bool,
+        enableAudioPlaybackTranscoding: Bool,
+        enableVideoPlaybackTranscoding: Bool,
+        enablePlaybackRemuxing: Bool,
+        forceRemoteSourceTranscoding: Bool,
+        enableContentDeletion: Bool,
+        enableContentDeletionFromFolders: [String]? = nil,
+        enableContentDownloading: Bool,
+        enableSyncTranscoding: Bool,
+        enableMediaConversion: Bool,
+        enabledDevices: [String]? = nil,
+        enableAllDevices: Bool,
+        enabledChannels: [UUID]? = nil,
+        enableAllChannels: Bool,
+        enabledFolders: [UUID]? = nil,
+        enableAllFolders: Bool,
+        invalidLoginAttemptCount: Int,
+        loginAttemptsBeforeLockout: Int,
+        maxActiveSessions: Int,
+        enablePublicSharing: Bool,
+        blockedMediaFolders: [UUID]? = nil,
+        blockedChannels: [UUID]? = nil,
+        remoteClientBitrateLimit: Int,
+        authenticationProviderId: String,
+        passwordResetProviderId: String,
+        syncPlayAccess: SyncPlayUserAccessType
+    ) {
+        self.isAdministrator = isAdministrator
+        self.isHidden = isHidden
+        self.enableCollectionManagement = enableCollectionManagement
+        self.enableSubtitleManagement = enableSubtitleManagement
+        self.enableLyricManagement = enableLyricManagement
+        self.isDisabled = isDisabled
+        self.maxParentalRating = maxParentalRating
+        self.maxParentalSubRating = maxParentalSubRating
+        self.blockedTags = blockedTags
+        self.allowedTags = allowedTags
+        self.enableUserPreferenceAccess = enableUserPreferenceAccess
+        self.accessSchedules = accessSchedules
+        self.blockUnratedItems = blockUnratedItems
+        self.enableRemoteControlOfOtherUsers = enableRemoteControlOfOtherUsers
+        self.enableSharedDeviceControl = enableSharedDeviceControl
+        self.enableRemoteAccess = enableRemoteAccess
+        self.enableLiveTvManagement = enableLiveTvManagement
+        self.enableLiveTvAccess = enableLiveTvAccess
+        self.enableMediaPlayback = enableMediaPlayback
+        self.enableAudioPlaybackTranscoding = enableAudioPlaybackTranscoding
+        self.enableVideoPlaybackTranscoding = enableVideoPlaybackTranscoding
+        self.enablePlaybackRemuxing = enablePlaybackRemuxing
+        self.forceRemoteSourceTranscoding = forceRemoteSourceTranscoding
+        self.enableContentDeletion = enableContentDeletion
+        self.enableContentDeletionFromFolders = enableContentDeletionFromFolders
+        self.enableContentDownloading = enableContentDownloading
+        self.enableSyncTranscoding = enableSyncTranscoding
+        self.enableMediaConversion = enableMediaConversion
+        self.enabledDevices = enabledDevices
+        self.enableAllDevices = enableAllDevices
+        self.enabledChannels = enabledChannels
+        self.enableAllChannels = enableAllChannels
+        self.enabledFolders = enabledFolders
+        self.enableAllFolders = enableAllFolders
+        self.invalidLoginAttemptCount = invalidLoginAttemptCount
+        self.loginAttemptsBeforeLockout = loginAttemptsBeforeLockout
+        self.maxActiveSessions = maxActiveSessions
+        self.enablePublicSharing = enablePublicSharing
+        self.blockedMediaFolders = blockedMediaFolders
+        self.blockedChannels = blockedChannels
+        self.remoteClientBitrateLimit = remoteClientBitrateLimit
+        self.authenticationProviderId = authenticationProviderId
+        self.passwordResetProviderId = passwordResetProviderId
+        self.syncPlayAccess = syncPlayAccess
+    }
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        isAdministrator = try container.decode(Bool.self, forKey: .isAdministrator)
+        isHidden = try container.decode(Bool.self, forKey: .isHidden)
+        enableCollectionManagement = try container.decode(Bool.self, forKey: .enableCollectionManagement)
+        enableSubtitleManagement = try container.decode(Bool.self, forKey: .enableSubtitleManagement)
+        enableLyricManagement = try container.decode(Bool.self, forKey: .enableLyricManagement)
+        isDisabled = try container.decode(Bool.self, forKey: .isDisabled)
+        maxParentalRating = try container.decodeIfPresent(Int.self, forKey: .maxParentalRating)
+        maxParentalSubRating = try container.decodeIfPresent(Int.self, forKey: .maxParentalSubRating)
+        blockedTags = try container.decodeIfPresent([String].self, forKey: .blockedTags)
+        allowedTags = try container.decodeIfPresent([String].self, forKey: .allowedTags)
+        enableUserPreferenceAccess = try container.decode(Bool.self, forKey: .enableUserPreferenceAccess)
+        accessSchedules = try container.decodeIfPresent([AccessSchedule].self, forKey: .accessSchedules)
+        blockUnratedItems = try container.decodeIfPresent([UnratedItem].self, forKey: .blockUnratedItems)
+        enableRemoteControlOfOtherUsers = try container.decode(Bool.self, forKey: .enableRemoteControlOfOtherUsers)
+        enableSharedDeviceControl = try container.decode(Bool.self, forKey: .enableSharedDeviceControl)
+        enableRemoteAccess = try container.decode(Bool.self, forKey: .enableRemoteAccess)
+        enableLiveTvManagement = try container.decode(Bool.self, forKey: .enableLiveTvManagement)
+        enableLiveTvAccess = try container.decode(Bool.self, forKey: .enableLiveTvAccess)
+        enableMediaPlayback = try container.decode(Bool.self, forKey: .enableMediaPlayback)
+        enableAudioPlaybackTranscoding = try container.decode(Bool.self, forKey: .enableAudioPlaybackTranscoding)
+        enableVideoPlaybackTranscoding = try container.decode(Bool.self, forKey: .enableVideoPlaybackTranscoding)
+        enablePlaybackRemuxing = try container.decode(Bool.self, forKey: .enablePlaybackRemuxing)
+        forceRemoteSourceTranscoding = try container.decode(Bool.self, forKey: .forceRemoteSourceTranscoding)
+        enableContentDeletion = try container.decode(Bool.self, forKey: .enableContentDeletion)
+        enableContentDeletionFromFolders = try container.decodeIfPresent([String].self, forKey: .enableContentDeletionFromFolders)
+        enableContentDownloading = try container.decode(Bool.self, forKey: .enableContentDownloading)
+        enableSyncTranscoding = try container.decode(Bool.self, forKey: .enableSyncTranscoding)
+        enableMediaConversion = try container.decode(Bool.self, forKey: .enableMediaConversion)
+        enabledDevices = try container.decodeIfPresent([String].self, forKey: .enabledDevices)
+        enableAllDevices = try container.decode(Bool.self, forKey: .enableAllDevices)
+        enabledChannels = try container.decodeJellyfinUUIDArrayIfPresent(forKey: .enabledChannels)
+        enableAllChannels = try container.decode(Bool.self, forKey: .enableAllChannels)
+        enabledFolders = try container.decodeJellyfinUUIDArrayIfPresent(forKey: .enabledFolders)
+        enableAllFolders = try container.decode(Bool.self, forKey: .enableAllFolders)
+        invalidLoginAttemptCount = try container.decode(Int.self, forKey: .invalidLoginAttemptCount)
+        loginAttemptsBeforeLockout = try container.decode(Int.self, forKey: .loginAttemptsBeforeLockout)
+        maxActiveSessions = try container.decode(Int.self, forKey: .maxActiveSessions)
+        enablePublicSharing = try container.decode(Bool.self, forKey: .enablePublicSharing)
+        blockedMediaFolders = try container.decodeJellyfinUUIDArrayIfPresent(forKey: .blockedMediaFolders)
+        blockedChannels = try container.decodeJellyfinUUIDArrayIfPresent(forKey: .blockedChannels)
+        remoteClientBitrateLimit = try container.decode(Int.self, forKey: .remoteClientBitrateLimit)
+        authenticationProviderId = try container.decode(String.self, forKey: .authenticationProviderId)
+        passwordResetProviderId = try container.decode(String.self, forKey: .passwordResetProviderId)
+        syncPlayAccess = try container.decode(SyncPlayUserAccessType.self, forKey: .syncPlayAccess)
+    }
 }
 
 /// Allowed SyncPlay access for a user.
@@ -199,6 +413,29 @@ public struct AccessSchedule: Codable, Sendable, Equatable {
         case dayOfWeek = "DayOfWeek"
         case startHour = "StartHour"
         case endHour = "EndHour"
+    }
+
+    public init(
+        id: Int,
+        userId: UUID,
+        dayOfWeek: DynamicDayOfWeek,
+        startHour: Double,
+        endHour: Double
+    ) {
+        self.id = id
+        self.userId = userId
+        self.dayOfWeek = dayOfWeek
+        self.startHour = startHour
+        self.endHour = endHour
+    }
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        userId = try container.decodeJellyfinUUID(forKey: .userId)
+        dayOfWeek = try container.decode(DynamicDayOfWeek.self, forKey: .dayOfWeek)
+        startHour = try container.decode(Double.self, forKey: .startHour)
+        endHour = try container.decode(Double.self, forKey: .endHour)
     }
 }
 
@@ -268,6 +505,21 @@ public struct DeviceInfo: Codable, Sendable, Equatable {
         case dateLastActivity = "DateLastActivity"
         case capabilities = "Capabilities"
         case iconUrl = "IconUrl"
+    }
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decodeIfPresent(String.self, forKey: .name)
+        customName = try container.decodeIfPresent(String.self, forKey: .customName)
+        accessToken = try container.decodeIfPresent(String.self, forKey: .accessToken)
+        id = try container.decodeIfPresent(String.self, forKey: .id)
+        lastUserName = try container.decodeIfPresent(String.self, forKey: .lastUserName)
+        appName = try container.decodeIfPresent(String.self, forKey: .appName)
+        appVersion = try container.decodeIfPresent(String.self, forKey: .appVersion)
+        lastUserId = try container.decodeJellyfinUUIDIfPresent(forKey: .lastUserId)
+        dateLastActivity = try container.decodeIfPresent(Date.self, forKey: .dateLastActivity)
+        capabilities = try container.decodeIfPresent(ClientCapabilities.self, forKey: .capabilities)
+        iconUrl = try container.decodeIfPresent(String.self, forKey: .iconUrl)
     }
 }
 

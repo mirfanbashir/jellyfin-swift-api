@@ -11,7 +11,7 @@ final class JellyfinRequestExecutorTests: XCTestCase {
             )
         }
         let executor = makeTestExecutor(
-            authorization: .header("MediaBrowser Token=test-token"),
+            authorization: .authenticated(token: "test-token"),
             transport: transport
         )
 
@@ -26,7 +26,7 @@ final class JellyfinRequestExecutorTests: XCTestCase {
         let request = try XCTUnwrap(lastRequest)
         XCTAssertEqual(
             request.value(forHTTPHeaderField: "Authorization"),
-            "MediaBrowser Token=test-token"
+            #"MediaBrowser Client="JellyfinSwiftAPI Tests",Device="Unit Test Device",DeviceId="test-device-id",Version="1.0.0",Token="test-token""#
         )
         XCTAssertEqual(
             request.url?.absoluteString,
@@ -34,7 +34,7 @@ final class JellyfinRequestExecutorTests: XCTestCase {
         )
     }
 
-    func testPublicRequestSkipsAuthorization() async throws {
+    func testPublicRequestAddsAuthorizationHeaderWithoutToken() async throws {
         let transport = TestTransport { request in
             JellyfinTransportResponse(
                 data: Data(),
@@ -44,15 +44,18 @@ final class JellyfinRequestExecutorTests: XCTestCase {
         let executor = makeTestExecutor(transport: transport)
 
         try await executor.executeEmpty(
-            for: JellyfinRequest(path: "/System/Info/Public", requiresAuthorization: false)
+            for: JellyfinRequest(path: "/System/Info/Public", requiresAuthentication: false)
         )
 
         let lastRequest = await transport.lastRequest()
         let request = try XCTUnwrap(lastRequest)
-        XCTAssertNil(request.value(forHTTPHeaderField: "Authorization"))
+        XCTAssertEqual(
+            request.value(forHTTPHeaderField: "Authorization"),
+            #"MediaBrowser Client="JellyfinSwiftAPI Tests",Device="Unit Test Device",DeviceId="test-device-id",Version="1.0.0""#
+        )
     }
 
-    func testMissingAuthorizationFailsBeforeTransport() async throws {
+    func testMissingAuthenticationTokenFailsBeforeTransport() async throws {
         let transport = TestTransport { request in
             JellyfinTransportResponse(
                 data: Data(),
@@ -63,9 +66,9 @@ final class JellyfinRequestExecutorTests: XCTestCase {
 
         do {
             try await executor.executeEmpty(for: JellyfinRequest(path: "/System/Info"))
-            XCTFail("Expected missing authorization error")
+            XCTFail("Expected missing authentication token error")
         } catch let error as JellyfinRequestExecutionError {
-            XCTAssertEqual(error, .missingAuthorization)
+            XCTAssertEqual(error, .missingAuthenticationToken)
         }
 
         let requestCount = await transport.requestCount()
@@ -87,7 +90,7 @@ final class JellyfinRequestExecutorTests: XCTestCase {
 
         let decoded = try await executor.executeJSON(
             PublicSystemInfoResponse.self,
-            for: JellyfinRequest(path: "/System/Info/Public", requiresAuthorization: false)
+            for: JellyfinRequest(path: "/System/Info/Public", requiresAuthentication: false)
         )
 
         XCTAssertEqual(decoded, PublicSystemInfoResponse(serverName: "Jellyfin Demo"))
@@ -108,7 +111,7 @@ final class JellyfinRequestExecutorTests: XCTestCase {
         let executor = makeTestExecutor(transport: transport)
 
         let response = try await executor.executeData(
-            for: JellyfinRequest(path: "/Items/1/Images/Primary", requiresAuthorization: false)
+            for: JellyfinRequest(path: "/Items/1/Images/Primary", requiresAuthentication: false)
         )
 
         XCTAssertEqual(response.data, pngData)
@@ -125,7 +128,7 @@ final class JellyfinRequestExecutorTests: XCTestCase {
             )
         }
         let executor = makeTestExecutor(
-            authorization: .header("MediaBrowser Token=test-token"),
+            authorization: .authenticated(token: "test-token"),
             transport: transport
         )
 
@@ -159,7 +162,7 @@ final class JellyfinRequestExecutorTests: XCTestCase {
             for: JellyfinRequest(
                 path: "/Videos/1/stream",
                 method: .head,
-                requiresAuthorization: false
+                requiresAuthentication: false
             )
         )
 

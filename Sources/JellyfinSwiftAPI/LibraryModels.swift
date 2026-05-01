@@ -557,6 +557,39 @@ public struct SearchHint: Codable, Sendable, Equatable {
         case channelName = "ChannelName"
         case primaryImageAspectRatio = "PrimaryImageAspectRatio"
     }
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        itemId = try container.decodeJellyfinUUIDIfPresent(forKey: .itemId)
+        id = try container.decodeJellyfinUUIDIfPresent(forKey: .id)
+        name = try container.decodeIfPresent(String.self, forKey: .name)
+        matchedTerm = try container.decodeIfPresent(String.self, forKey: .matchedTerm)
+        indexNumber = try container.decodeIfPresent(Int.self, forKey: .indexNumber)
+        productionYear = try container.decodeIfPresent(Int.self, forKey: .productionYear)
+        parentIndexNumber = try container.decodeIfPresent(Int.self, forKey: .parentIndexNumber)
+        primaryImageTag = try container.decodeIfPresent(String.self, forKey: .primaryImageTag)
+        thumbImageTag = try container.decodeIfPresent(String.self, forKey: .thumbImageTag)
+        thumbImageItemId = try container.decodeJellyfinUUIDIfPresent(forKey: .thumbImageItemId)
+        backdropImageTag = try container.decodeIfPresent(String.self, forKey: .backdropImageTag)
+        backdropImageItemId = try container.decodeJellyfinUUIDIfPresent(forKey: .backdropImageItemId)
+        type = try container.decodeIfPresent(BaseItemKind.self, forKey: .type)
+        isFolder = try container.decodeIfPresent(Bool.self, forKey: .isFolder)
+        runTimeTicks = try container.decodeIfPresent(Int64.self, forKey: .runTimeTicks)
+        mediaType = try container.decodeIfPresent(MediaType.self, forKey: .mediaType)
+        startDate = try container.decodeIfPresent(Date.self, forKey: .startDate)
+        endDate = try container.decodeIfPresent(Date.self, forKey: .endDate)
+        series = try container.decodeIfPresent(String.self, forKey: .series)
+        status = try container.decodeIfPresent(String.self, forKey: .status)
+        album = try container.decodeIfPresent(String.self, forKey: .album)
+        albumId = try container.decodeJellyfinUUIDIfPresent(forKey: .albumId)
+        albumArtist = try container.decodeIfPresent(String.self, forKey: .albumArtist)
+        artists = try container.decodeIfPresent([String].self, forKey: .artists)
+        songCount = try container.decodeIfPresent(Int.self, forKey: .songCount)
+        episodeCount = try container.decodeIfPresent(Int.self, forKey: .episodeCount)
+        channelId = try container.decodeJellyfinUUIDIfPresent(forKey: .channelId)
+        channelName = try container.decodeIfPresent(String.self, forKey: .channelName)
+        primaryImageAspectRatio = try container.decodeIfPresent(Double.self, forKey: .primaryImageAspectRatio)
+    }
 }
 
 /// Partial Jellyfin per-user item data model.
@@ -612,6 +645,21 @@ public struct UserItemData: Codable, Sendable, Equatable {
         self.key = key
         self.itemId = itemId
     }
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        rating = try container.decodeIfPresent(Double.self, forKey: .rating)
+        playedPercentage = try container.decodeIfPresent(Double.self, forKey: .playedPercentage)
+        unplayedItemCount = try container.decodeIfPresent(Int.self, forKey: .unplayedItemCount)
+        playbackPositionTicks = try container.decodeIfPresent(Int64.self, forKey: .playbackPositionTicks)
+        playCount = try container.decodeIfPresent(Int.self, forKey: .playCount)
+        isFavorite = try container.decodeIfPresent(Bool.self, forKey: .isFavorite)
+        likes = try container.decodeIfPresent(Bool.self, forKey: .likes)
+        lastPlayedDate = try container.decodeIfPresent(Date.self, forKey: .lastPlayedDate)
+        played = try container.decodeIfPresent(Bool.self, forKey: .played)
+        key = try container.decodeIfPresent(String.self, forKey: .key)
+        itemId = try container.decodeJellyfinUUIDIfPresent(forKey: .itemId)
+    }
 }
 
 /// Legacy library query-filter response.
@@ -649,6 +697,12 @@ public struct NameGuidPair: Codable, Sendable, Equatable {
         case name = "Name"
         case id = "Id"
     }
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decodeIfPresent(String.self, forKey: .name)
+        id = try container.decodeJellyfinUUIDIfPresent(forKey: .id)
+    }
 }
 
 /// Collection creation result.
@@ -658,6 +712,11 @@ public struct CollectionCreationResult: Codable, Sendable, Equatable {
     enum CodingKeys: String, CodingKey {
         case id = "Id"
     }
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decodeJellyfinUUID(forKey: .id)
+    }
 }
 
 /// Playlist creation result.
@@ -666,6 +725,11 @@ public struct PlaylistCreationResult: Codable, Sendable, Equatable {
 
     enum CodingKeys: String, CodingKey {
         case id = "Id"
+    }
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decodeJellyfinUUID(forKey: .id)
     }
 }
 
@@ -679,6 +743,13 @@ public struct Playlist: Codable, Sendable, Equatable {
         case openAccess = "OpenAccess"
         case shares = "Shares"
         case itemIds = "ItemIds"
+    }
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        openAccess = try container.decodeIfPresent(Bool.self, forKey: .openAccess)
+        shares = try container.decodeIfPresent([PlaylistUserPermission].self, forKey: .shares)
+        itemIds = try container.decodeJellyfinUUIDArrayIfPresent(forKey: .itemIds)
     }
 }
 
@@ -695,6 +766,12 @@ public struct PlaylistUserPermission: Codable, Sendable, Equatable {
     public init(userId: UUID? = nil, canEdit: Bool? = nil) {
         self.userId = userId
         self.canEdit = canEdit
+    }
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        userId = try container.decodeJellyfinUUIDIfPresent(forKey: .userId)
+        canEdit = try container.decodeIfPresent(Bool.self, forKey: .canEdit)
     }
 }
 
@@ -903,6 +980,18 @@ public struct VirtualFolderInfo: Codable, Sendable, Equatable {
         case refreshProgress = "RefreshProgress"
         case refreshStatus = "RefreshStatus"
     }
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decodeIfPresent(String.self, forKey: .name)
+        locations = try container.decodeIfPresent([String].self, forKey: .locations)
+        collectionType = try container.decodeIfPresent(CollectionType.self, forKey: .collectionType)
+        libraryOptions = try container.decodeIfPresent(LibraryOptions.self, forKey: .libraryOptions)
+        itemId = try container.decodeJellyfinUUIDIfPresent(forKey: .itemId)
+        primaryImageItemId = try container.decodeJellyfinUUIDIfPresent(forKey: .primaryImageItemId)
+        refreshProgress = try container.decodeIfPresent(Double.self, forKey: .refreshProgress)
+        refreshStatus = try container.decodeIfPresent(String.self, forKey: .refreshStatus)
+    }
 }
 
 /// Media path info wrapper used by library structure endpoints.
@@ -994,6 +1083,14 @@ public struct ThemeMediaResult: Codable, Sendable, Equatable {
         case totalRecordCount = "TotalRecordCount"
         case startIndex = "StartIndex"
         case ownerId = "OwnerId"
+    }
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        items = try container.decode([BaseItem].self, forKey: .items)
+        totalRecordCount = try container.decode(Int.self, forKey: .totalRecordCount)
+        startIndex = try container.decode(Int.self, forKey: .startIndex)
+        ownerId = try container.decodeJellyfinUUIDIfPresent(forKey: .ownerId)
     }
 }
 

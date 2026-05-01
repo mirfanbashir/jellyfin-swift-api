@@ -4,7 +4,7 @@ import JellyfinSwiftAPI
 final class JellyfinSwiftAPITests: XCTestCase {
     func testInitializationExposesServices() throws {
         let url = try XCTUnwrap(URL(string: "https://jellyfin.example.com"))
-        let client = JellyfinSwiftAPI(serverURL: url)
+        let client = JellyfinSwiftAPI(serverURL: url, clientInfo: testClientInfo)
 
         let authenticationService: any AuthenticationService = client.authentication
         let catalogService: any CatalogService = client.catalog
@@ -33,7 +33,7 @@ final class JellyfinSwiftAPITests: XCTestCase {
 
     func testClientCanCrossConcurrencyDomains() async throws {
         let url = try XCTUnwrap(URL(string: "https://jellyfin.example.com"))
-        let client = JellyfinSwiftAPI(serverURL: url)
+        let client = JellyfinSwiftAPI(serverURL: url, clientInfo: testClientInfo)
 
         let serviceNames = await Task.detached {
             [
